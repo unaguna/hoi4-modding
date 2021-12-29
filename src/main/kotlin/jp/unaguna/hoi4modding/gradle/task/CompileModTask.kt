@@ -10,13 +10,24 @@ import java.io.File
 open class CompileModTask: DefaultTask() {
     private val log: Logger = Logging.getLogger(CompileModTask::class.java)
 
+    private val inputDir = project.file("src")
+    private val distDir = distDir(project)
+
+    init {
+        inputs.dir(inputDir)
+        outputs.dir(distDir)
+    }
+
     @TaskAction
     fun exec() {
-        val inputDir = project.file("src")
         val inputFiles = project.fileTree("src")
-        val distDir = distDir(project)
 
         log.debug("Dest: $distDir")
+        if(distDir.exists()) {
+            // TODO: 引数がfalseなら例外を投げる
+            distDir.deleteRecursively()
+        }
+        distDir.mkdir()
 
         for(srcFileAbs in inputFiles){
             log.debug("Src: $srcFileAbs")
