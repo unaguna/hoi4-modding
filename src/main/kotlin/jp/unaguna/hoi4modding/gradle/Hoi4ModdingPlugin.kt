@@ -16,5 +16,6 @@ class Hoi4ModdingPlugin: Plugin<Project> {
         project.tasks.register(HotDeployTask.NAME, HotDeployTask::class.java) {
             it.dependsOn(CompileModTask.NAME)
         }
+        project.tasks.getByName("assemble").dependsOn(CompileModTask.NAME)
     }
 }
