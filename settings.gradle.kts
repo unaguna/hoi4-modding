@@ -1,2 +1,3 @@
 rootProject.name = "hoi4-modding"
 include(":hoi4-modding-gradle-plugin")
+include(":hoi4-java-modding")
