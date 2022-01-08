@@ -9,9 +9,9 @@ open class HotDeployTask: DefaultTask() {
     @TaskAction
     fun exec() {
         val hoi4ModExtension = project.extensions.getByType(Hoi4ModExtension::class.java)
-        val deployDest = hoi4ModExtension.moddir.orNull
+        val deployDest = hoi4ModExtension.moddir
             ?: throw InvalidUserDataException("Task '$name' needs the property '${Hoi4ModExtension.NAME}.moddir'")
-        val deployTarget = hoi4ModExtension.target.orNull
+        val deployTarget = hoi4ModExtension.target
             ?: throw InvalidUserDataException("Task '$name' needs the property '${Hoi4ModExtension.NAME}.target'")
 
         val deploySrcDir = CompileModTask.distDir(project)

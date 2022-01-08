@@ -1,11 +1,10 @@
 package jp.unaguna.hoi4modding.gradle
 
-import org.gradle.api.provider.Property
 import java.io.File
 
-abstract class Hoi4ModExtension {
+open class Hoi4ModExtension {
     /** The root directory of individual mods in the HOI4 mod directory */
-    abstract val moddir: Property<File>
+    var moddir: File? = null
 
     /**
      * The target directory of deployment
@@ -13,7 +12,7 @@ abstract class Hoi4ModExtension {
      * The location of the files in the module, specified relative to moddir.
      * Example: `"common/national_focus"`.
      */
-    abstract val target: Property<String>
+    var target: String? = null
 
     companion object {
         const val NAME = "hoi4mod"
