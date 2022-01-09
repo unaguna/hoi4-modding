@@ -60,8 +60,8 @@ class Hoi4ObjectTest : FunSpec ({
         io.kotest.data.forAll(
             table(
                 headers("strList", "expected str"),
-                row(listOf("aaa"), "{\n\t\"aaa\"\n}"),
-                row(listOf("aaa", "bb"), "{\n\t\"aaa\"\n\t\"bb\"\n}"),
+                row(listOf("aaa"), "\"aaa\"\n"),
+                row(listOf("aaa", "bb"), "\"aaa\"\n\"bb\"\n"),
             )
         ) { strList: List<String>, expectedStr: String ->
             test("Hoi4List<Hoi4String>($strList).serialize()") {
@@ -74,9 +74,9 @@ class Hoi4ObjectTest : FunSpec ({
         io.kotest.data.forAll(
             table(
                 headers("strList", "indent", "expected str"),
-                row(listOf("aaa", "bb"), 0, "{\n\t\"aaa\"\n\t\"bb\"\n}"),
-                row(listOf("aaa", "bb"), 1, "{\n\t\t\"aaa\"\n\t\t\"bb\"\n\t}"),
-                row(listOf("aaa", "bb"), 2, "{\n\t\t\t\"aaa\"\n\t\t\t\"bb\"\n\t\t}"),
+                row(listOf("aaa", "bb"), 0, "\"aaa\"\n\"bb\"\n"),
+                row(listOf("aaa", "bb"), 1, "\t\"aaa\"\n\t\"bb\"\n"),
+                row(listOf("aaa", "bb"), 2, "\t\t\"aaa\"\n\t\t\"bb\"\n"),
             )
         ) { strList: List<String>, indent: Int, expectedStr: String ->
             test("Hoi4List<Hoi4String>($strList).serialize($indent)") {

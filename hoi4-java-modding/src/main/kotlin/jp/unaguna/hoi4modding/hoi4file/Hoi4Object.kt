@@ -26,18 +26,11 @@ interface Hoi4ListElement {
 
 class Hoi4List<E: Hoi4ListElement>(private val list: List<E>): Hoi4Object(), Hoi4RelationRight {
     override fun serialize(baseIndent: Int): String {
-        val nextIndent = 1 + baseIndent
-
         return buildString {
-            appendLine("{")
-
             for(element in list) {
-                append(INDENT_UNIT.repeat(nextIndent))
-                appendLine(element.serialize(nextIndent))
+                append(INDENT_UNIT.repeat(baseIndent))
+                appendLine(element.serialize(baseIndent))
             }
-
-            append(INDENT_UNIT.repeat(baseIndent))
-            append("}")
         }
     }
 }

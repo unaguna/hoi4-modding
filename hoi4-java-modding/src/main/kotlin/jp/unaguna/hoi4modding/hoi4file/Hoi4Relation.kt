@@ -8,7 +8,22 @@ interface Hoi4RelationRight {
 sealed class Hoi4Relation(private val left: String, private val right: Hoi4RelationRight) : Hoi4Object(), Hoi4ListElement {
     abstract val relationString: String
 
-    override fun serialize(baseIndent: Int): String = "$left $relationString ${right.serialize(baseIndent)}"
+    override fun serialize(baseIndent: Int): String {
+        return if(right is Hoi4List<*>) {
+            buildString {
+                append(left)
+                append(" ")
+                append(relationString)
+                append(" {")
+                appendLine()
+                append(right.serialize(baseIndent+1))
+                repeat(baseIndent) { append(INDENT_UNIT) }
+                append("}")
+            }
+        } else {
+            "$left $relationString ${right.serialize(baseIndent+1)}"
+        }
+    }
 }
 
 class Hoi4RelationEq(left: String, right: Hoi4RelationRight): Hoi4Relation(left, right) {
