@@ -1,6 +1,8 @@
 package jp.unaguna.hoi4modding.gradle.task
 
+import jp.unaguna.hoi4modding.gradle.Hoi4ModExtension
 import org.gradle.api.DefaultTask
+import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
@@ -20,6 +22,9 @@ open class CompileModTask: DefaultTask() {
 
     @TaskAction
     fun exec() {
+        val hoi4ModExtension = project.extensions.getByType(Hoi4ModExtension::class.java)
+        val deployTarget = hoi4ModExtension.target
+            ?: throw InvalidUserDataException("Task '$name' needs the property '${Hoi4ModExtension.NAME}.target'")
         val inputFiles = project.fileTree("src/main/plane")
 
         log.debug("Dest: $distDir")
@@ -33,7 +38,7 @@ open class CompileModTask: DefaultTask() {
             log.debug("Src: $srcFileAbs")
 
             val fileRel = srcFileAbs.relativeTo(inputDir)
-            val destFileAbs = distDir.resolve(fileRel)
+            val destFileAbs = distDir.resolve(deployTarget).resolve(fileRel)
 
             srcFileAbs.copyTo(destFileAbs)
         }
