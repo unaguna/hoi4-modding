@@ -10,7 +10,7 @@ import java.io.File
 open class CompileModTask: DefaultTask() {
     private val log: Logger = Logging.getLogger(CompileModTask::class.java)
 
-    private val inputDir = project.file("src")
+    private val inputDir = project.file("src/main/plane")
     private val distDir = distDir(project)
 
     init {
@@ -20,7 +20,7 @@ open class CompileModTask: DefaultTask() {
 
     @TaskAction
     fun exec() {
-        val inputFiles = project.fileTree("src")
+        val inputFiles = project.fileTree("src/main/plane")
 
         log.debug("Dest: $distDir")
         if(distDir.exists()) {
