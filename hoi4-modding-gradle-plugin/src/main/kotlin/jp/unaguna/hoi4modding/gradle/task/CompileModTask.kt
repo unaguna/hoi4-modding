@@ -16,6 +16,7 @@ open class CompileModTask: DefaultTask() {
     private val distDir = distDir(project)
 
     init {
+        // TODO: inputDir が存在しない場合にエラーにならないように。(たとえば compileJava は src/main/java が存在しなくても、NO-SOURCEと判定されてエラーにはならない)
         inputs.dir(inputDir)
         outputs.dir(distDir)
     }
