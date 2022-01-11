@@ -2,6 +2,7 @@ package jp.unaguna.hoi4modding.gradle.task
 
 import io.github.classgraph.ClassGraph
 import jp.unaguna.hoi4modding.struct.ModFile
+import jp.unaguna.hoi4modding.struct.ToFile
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
@@ -10,6 +11,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.TaskAction
 import org.gradle.jvm.tasks.Jar
 import java.io.File
+import java.lang.instrument.IllegalClassFormatException
 import java.net.URLClassLoader
 
 
@@ -51,7 +53,13 @@ open class CompileJavaModTask: DefaultTask() {
                         log.debug("Compile to mod file from ${classInfo.name}")
                     }
 
-                    // TODO: classInfo が ToFile を実装していないクラスであれば例外
+                    // classInfo が ToFile を実装していないクラスであれば例外
+                    if(!classInfo.implementsInterface(ToFile::class.java)) {
+                        log.debug("Annotation ModFile is given to class that cannot be compiled to mod: ${classInfo.name}")
+
+                        // TODO: 投げる例外を作る
+                        throw Exception("Annotation ModFile is given to class that cannot be compiled to mod: ${classInfo.name}")
+                    }
 
                     // インスタンス作成
                     val instance = classInfo.loadClass().getDeclaredConstructor().newInstance()
