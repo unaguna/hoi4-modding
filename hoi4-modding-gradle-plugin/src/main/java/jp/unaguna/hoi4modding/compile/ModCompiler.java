@@ -58,7 +58,7 @@ public class ModCompiler {
                     System.err.println("Annotation ModFile is given to class that cannot be compiled to mod: " + classInfo.getName());
 
                     // TODO: 投げる独自例外を作る
-                    throw new RuntimeException("Annotation ModFile is given to class that cannot be compiled to mod: ${classInfo.name}");
+                    throw new RuntimeException("Annotation ModFile is given to class that cannot be compiled to mod: " + classInfo.getName());
                 }
 
                 // インスタンス作成
