@@ -20,12 +20,11 @@ open class CompileModJavaTask: Exec() {
     private val classPathWhenSync: Collection<File>
 
     init {
-        // TODO: class lorder で使っている sourceSet を @CompileClasspath として登録する
         inputs.dir(inputDir)
         outputs.dir(distDir)
 
         classPathWhenSync = JavaRunner.currentClassPaths()
-        executable("java")
+        this.executable("java")
     }
 
     @TaskAction
