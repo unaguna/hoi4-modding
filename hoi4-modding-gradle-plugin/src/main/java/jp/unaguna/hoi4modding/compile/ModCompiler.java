@@ -19,10 +19,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Collection;
 import java.util.List;
 
-public class ModCompiler {
-    private final Collection<URL> targetClasspath;
-    private final Path destinationDirectory;
-
+public record ModCompiler(Collection<URL> targetClasspath, Path destinationDirectory) {
     public ModCompiler(
             Collection<URL> targetClasspath,
             Path destinationDirectory
@@ -31,10 +28,10 @@ public class ModCompiler {
         this.destinationDirectory = destinationDirectory;
 
         // validate arguments
-        if(targetClasspath == null || targetClasspath.isEmpty()) {
+        if (targetClasspath == null || targetClasspath.isEmpty()) {
             throw new IllegalArgumentException("'targetClasspath' must contain at least one path.");
         }
-        if(destinationDirectory == null) {
+        if (destinationDirectory == null) {
             throw new IllegalArgumentException("'destinationDirectory' must not be null.");
         }
     }
@@ -42,8 +39,8 @@ public class ModCompiler {
     public void compile() throws ModCompileException {
         URLClassLoader targetClassLoader = new URLClassLoader(targetClasspath.toArray(new URL[0]));
 
-        try(ScanResult scanResult = new ClassGraph().enableClassInfo().enableAnnotationInfo().scan();
-            ScanResult targetScanResult = new ClassGraph().overrideClassLoaders(targetClassLoader).ignoreParentClassLoaders().enableClassInfo().scan()) {
+        try (ScanResult scanResult = new ClassGraph().enableClassInfo().enableAnnotationInfo().scan();
+             ScanResult targetScanResult = new ClassGraph().overrideClassLoaders(targetClassLoader).ignoreParentClassLoaders().enableClassInfo().scan()) {
 
             ClassInfoList modFileClassList = scanResult.getClassesWithAnnotation(ModFile.class);
 
