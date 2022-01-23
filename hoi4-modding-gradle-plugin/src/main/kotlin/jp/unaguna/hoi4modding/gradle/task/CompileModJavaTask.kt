@@ -5,6 +5,9 @@ import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Exec
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.TaskAction
 import org.gradle.jvm.tasks.Jar
@@ -14,15 +17,16 @@ import java.io.File
 open class CompileModJavaTask: Exec() {
     private val log: Logger = Logging.getLogger(CompileModJavaTask::class.java)
 
-    private val inputDir = project.file("build/classes")
-    private val distDir = distDir(project)
+    @get:InputDirectory
+    @get:SkipWhenEmpty
+    val inputDir: File = project.file("build/classes")
+
+    @get:OutputDirectory
+    val distDir = distDir(project)
 
     private val classPathWhenSync: Collection<File>
 
     init {
-        inputs.dir(inputDir)
-        outputs.dir(distDir)
-
         classPathWhenSync = JavaRunner.currentClassPaths()
         this.executable("java")
     }

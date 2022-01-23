@@ -6,20 +6,21 @@ import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 open class CompileModPlaneTask: DefaultTask() {
     private val log: Logger = Logging.getLogger(CompileModPlaneTask::class.java)
 
-    private val inputDir = project.file("src/main/plane")
-    private val distDir = distDir(project)
+    @get:InputDirectory
+    @get:SkipWhenEmpty
+    val inputDir: File = project.file("src/main/plane")
 
-    init {
-        // TODO: inputDir が存在しない場合にエラーにならないように。(たとえば compileJava は src/main/java が存在しなくても、NO-SOURCEと判定されてエラーにはならない)
-        inputs.dir(inputDir)
-        outputs.dir(distDir)
-    }
+    @get:OutputDirectory
+    val distDir = distDir(project)
 
     @TaskAction
     fun exec() {
