@@ -30,7 +30,13 @@ public class ModCompiler {
         this.targetClasspath = targetClasspath;
         this.destinationDirectory = destinationDirectory;
 
-        // TODO: validation
+        // validate arguments
+        if(targetClasspath == null || targetClasspath.isEmpty()) {
+            throw new IllegalArgumentException("'targetClasspath' must contain at least one path.");
+        }
+        if(destinationDirectory == null) {
+            throw new IllegalArgumentException("'destinationDirectory' must not be null.");
+        }
     }
 
     public void compile() throws ModCompileException {
