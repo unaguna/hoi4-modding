@@ -12,7 +12,7 @@ open class HotDeployTask: DefaultTask() {
         val deployDest = hoi4ModExtension.moddir
             ?: throw InvalidUserDataException("Task '$name' needs the property '${Hoi4ModExtension.NAME}.moddir'")
 
-        val deploySrcDir = CompileModPlaneTask.distDir(project)
+        val deploySrcDir = CompileModTask.distDir(project)
 
         deploySrcDir.copyRecursively(deployDest, overwrite = true)
     }
