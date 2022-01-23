@@ -11,6 +11,8 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.io.IOException
+import java.nio.file.Files
 
 open class CompileModPlaneTask: DefaultTask() {
     private val log: Logger = Logging.getLogger(CompileModPlaneTask::class.java)
@@ -31,10 +33,12 @@ open class CompileModPlaneTask: DefaultTask() {
 
         log.debug("Dest: $distDir")
         if(distDir.exists()) {
-            // TODO: 引数がfalseなら例外を投げる
-            distDir.deleteRecursively()
+            val succeeded = distDir.deleteRecursively()
+            if (!succeeded) {
+                throw IOException("Failed to delete the destination directory that already exists.")
+            }
         }
-        distDir.mkdir()
+        Files.createDirectory(distDir.toPath())
 
         for(srcFileAbs in inputFiles){
             log.debug("Src: $srcFileAbs")
