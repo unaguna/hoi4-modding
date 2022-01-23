@@ -9,8 +9,8 @@ import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
-open class CompileModTask: DefaultTask() {
-    private val log: Logger = Logging.getLogger(CompileModTask::class.java)
+open class CompileModPlaneTask: DefaultTask() {
+    private val log: Logger = Logging.getLogger(CompileModPlaneTask::class.java)
 
     private val inputDir = project.file("src/main/plane")
     private val distDir = distDir(project)
@@ -46,7 +46,7 @@ open class CompileModTask: DefaultTask() {
     }
 
     companion object {
-        const val NAME = "compileMod"
+        const val NAME = "compileModPlane"
 
         internal fun distDir(project: Project): File = project.buildDir.resolve(NAME)
     }

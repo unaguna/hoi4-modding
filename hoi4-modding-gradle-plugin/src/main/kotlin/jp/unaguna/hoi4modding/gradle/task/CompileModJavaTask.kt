@@ -11,8 +11,8 @@ import org.gradle.jvm.tasks.Jar
 import java.io.File
 
 
-open class CompileJavaModTask: Exec() {
-    private val log: Logger = Logging.getLogger(CompileJavaModTask::class.java)
+open class CompileModJavaTask: Exec() {
+    private val log: Logger = Logging.getLogger(CompileModJavaTask::class.java)
 
     private val inputDir = project.file("build/classes")
     private val distDir = distDir(project)
@@ -66,7 +66,7 @@ open class CompileJavaModTask: Exec() {
     }
 
     companion object {
-        const val NAME = "compileJavaMod"
+        const val NAME = "compileModJava"
 
         internal fun distDir(project: Project): File = project.buildDir.resolve(NAME)
     }
