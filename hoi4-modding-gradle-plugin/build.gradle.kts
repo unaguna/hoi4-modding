@@ -6,6 +6,9 @@ plugins {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation(gradleApi())
+    implementation("io.github.classgraph:classgraph:4.8.138")
+
+    implementation(project(":hoi4-java-modding"))
 }
 
 tasks.jar {
