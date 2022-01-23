@@ -2,6 +2,7 @@ package jp.unaguna.hoi4modding.gradle.task
 
 import jp.unaguna.hoi4modding.gradle.javarunner.JavaRunner
 import org.gradle.api.Project
+import org.gradle.api.logging.LogLevel
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
@@ -30,6 +31,7 @@ open class CompileModJavaTask: Exec() {
     @TaskAction
     override fun exec() {
         initCommand()
+        logging.captureStandardOutput(LogLevel.DEBUG)
         super.exec()
     }
 

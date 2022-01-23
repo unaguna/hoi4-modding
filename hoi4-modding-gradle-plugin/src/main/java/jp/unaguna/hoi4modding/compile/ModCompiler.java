@@ -45,20 +45,20 @@ public record ModCompiler(Collection<URL> targetClasspath, Path destinationDirec
             ClassInfoList modFileClassList = scanResult.getClassesWithAnnotation(ModFile.class);
 
             for (ClassInfo classInfo : modFileClassList) {
-                System.err.println("A class annotated with ModFile is found: " + classInfo.getName());
+                System.out.println("A class annotated with ModFile is found: " + classInfo.getName());
 
                 try {
                     // 当該プロジェクト固有のクラス以外を無視する
                     if (targetScanResult.getClassInfo(classInfo.getName()) == null) {
-                        System.err.println("Ignore external class " + classInfo.getName());
+                        System.out.println("Ignore external class " + classInfo.getName());
                         continue;
                     } else {
-                        System.err.println("Compile to mod file from " + classInfo.getName());
+                        System.out.println("Compile to mod file from " + classInfo.getName());
                     }
 
                     // インスタンス作成
                     ToFile instance = (ToFile) classInfo.loadClass().getDeclaredConstructor().newInstance();
-                    System.err.println("The instance of " + classInfo.getName() + " has been constructed: " + instance);
+                    System.out.println("The instance of " + classInfo.getName() + " has been constructed: " + instance);
 
                     // modファイルへ書き出す
                     for (Pair<String, Hoi4Object> modFile : instance.fileList()) {
