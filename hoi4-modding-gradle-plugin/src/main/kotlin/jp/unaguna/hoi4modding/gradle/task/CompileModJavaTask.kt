@@ -2,8 +2,6 @@ package jp.unaguna.hoi4modding.gradle.task
 
 import jp.unaguna.hoi4modding.gradle.javarunner.JavaRunner
 import org.gradle.api.Project
-import org.gradle.api.logging.Logger
-import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Exec
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.OutputDirectory
@@ -15,8 +13,6 @@ import java.io.File
 
 
 open class CompileModJavaTask: Exec() {
-    private val log: Logger = Logging.getLogger(CompileModJavaTask::class.java)
-
     @get:InputDirectory
     @get:SkipWhenEmpty
     val inputDir: File = project.file("build/classes")
