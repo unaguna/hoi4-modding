@@ -1,3 +1,16 @@
 package jp.unaguna.hoi4modding.struct
 
-data class Color(val red: Int, val green: Int, val blue: Int)
+import jp.unaguna.hoi4modding.hoi4file.Hoi4List
+import jp.unaguna.hoi4modding.hoi4file.Hoi4Number
+import jp.unaguna.hoi4modding.hoi4file.ToHoi4List
+import jp.unaguna.hoi4modding.hoi4file.numberList
+
+data class Color(val red: Int, val green: Int, val blue: Int): ToHoi4List<Hoi4Number> {
+    override fun toHoi4List(): Hoi4List<Hoi4Number> {
+        return numberList {
+            append(red)
+            append(green)
+            append(blue)
+        }
+    }
+}

@@ -19,11 +19,7 @@ abstract class Country : ToFile, ICountry {
             // TODO: Make values not constant
             "graphical_culture" eq "commonwealth_gfx"
             "graphical_culture_2d" eq "commonwealth_2d"
-            "color" eq numberList {
-                append(color.red)
-                append(color.green)
-                append(color.blue)
-            }
+            "color" eq color
         }
         fileList.add(country)
         fileList.add("common/country_tags/$tag.txt" to relationList {
