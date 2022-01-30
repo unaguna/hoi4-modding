@@ -15,7 +15,7 @@ data class Hoi4String(private val string: String): Hoi4Object(), Hoi4ListElement
     override fun serialize(baseIndent: Int): String = "\"${this.string}\""
 }
 
-data class Hoi4Number(private val number: Double): Hoi4Object(), Hoi4ListElement, Hoi4RelationRight {
+data class Hoi4Number(private val number: Number): Hoi4Object(), Hoi4ListElement, Hoi4RelationRight {
     override fun toString(): String = this.number.toString()
     override fun serialize(baseIndent: Int): String = this.toString()
 }
@@ -24,7 +24,7 @@ interface Hoi4ListElement {
     fun serialize(baseIndent: Int): String
 }
 
-class Hoi4List<E: Hoi4ListElement>(private val list: List<E>): Hoi4Object(), Hoi4RelationRight {
+class Hoi4List<E: Hoi4ListElement>(private val list: List<E>): Hoi4Object(), Hoi4RelationRight, Collection<E> by list {
     override fun serialize(baseIndent: Int): String {
         return buildString {
             for(element in list) {
@@ -42,6 +42,10 @@ sealed class Hoi4ListBuilder<E: Hoi4ListElement> {
         list.add(element)
         return this
     }
+    fun appendAll(elements: Collection<E>) : Hoi4ListBuilder<E> {
+        list.addAll(elements)
+        return this
+    }
     fun build(): Hoi4List<E> = Hoi4List(list)
 }
 
@@ -49,20 +53,56 @@ class Hoi4RelationListBuilder: Hoi4ListBuilder<Hoi4Relation>() {
     infix fun String.eq(right: Hoi4RelationRight) {
         append(Hoi4RelationEq(this, right))
     }
+    infix fun String.eq(right: AsHoi4Number) {
+        append(Hoi4RelationEq(this, right.asHoi4Number()))
+    }
+    infix fun String.eq(right: AsHoi4String) {
+        append(Hoi4RelationEq(this, right.asHoi4String()))
+    }
+    infix fun String.eq(right: Number) {
+        append(Hoi4RelationEq(this, Hoi4Number(right)))
+    }
     infix fun String.eq(right: String) {
         append(Hoi4RelationEq(this, Hoi4String(right)))
+    }
+    infix fun String.eq(right: ToHoi4List<*>) {
+        append(Hoi4RelationEq(this, right.toHoi4List()))
     }
     infix fun String.lt(right: Hoi4RelationRight) {
         append(Hoi4RelationLt(this, right))
     }
+    infix fun String.lt(right: AsHoi4Number) {
+        append(Hoi4RelationLt(this, right.asHoi4Number()))
+    }
+    infix fun String.lt(right: AsHoi4String) {
+        append(Hoi4RelationLt(this, right.asHoi4String()))
+    }
+    infix fun String.lt(right: Number) {
+        append(Hoi4RelationLt(this, Hoi4Number(right)))
+    }
     infix fun String.lt(right: String) {
         append(Hoi4RelationLt(this, Hoi4String(right)))
+    }
+    infix fun String.lt(right: ToHoi4List<*>) {
+        append(Hoi4RelationLt(this, right.toHoi4List()))
     }
     infix fun String.gt(right: Hoi4RelationRight) {
         append(Hoi4RelationGt(this, right))
     }
+    infix fun String.gt(right: AsHoi4Number) {
+        append(Hoi4RelationGt(this, right.asHoi4Number()))
+    }
+    infix fun String.gt(right: AsHoi4String) {
+        append(Hoi4RelationGt(this, right.asHoi4String()))
+    }
+    infix fun String.gt(right: Number) {
+        append(Hoi4RelationGt(this, Hoi4Number(right)))
+    }
     infix fun String.gt(right: String) {
         append(Hoi4RelationGt(this, Hoi4String(right)))
+    }
+    infix fun String.gt(right: ToHoi4List<*>) {
+        append(Hoi4RelationGt(this, right.toHoi4List()))
     }
 }
 
