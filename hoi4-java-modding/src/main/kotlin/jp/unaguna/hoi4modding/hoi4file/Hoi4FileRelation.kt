@@ -1,15 +1,15 @@
 package jp.unaguna.hoi4modding.hoi4file
 
 
-interface Hoi4RelationRight {
+interface Hoi4FileRelationRight {
     fun serialize(baseIndent: Int): String
 }
 
-sealed class Hoi4Relation(private val left: String, private val right: Hoi4RelationRight) : Hoi4Object(), Hoi4ListElement {
+sealed class Hoi4FileRelation(private val left: String, private val right: Hoi4FileRelationRight) : Hoi4FileObject(), Hoi4FileListElement {
     abstract val relationString: String
 
     override fun serialize(baseIndent: Int): String {
-        return if(right is Hoi4List<*>) {
+        return if(right is Hoi4FileList<*>) {
             buildString {
                 append(left)
                 append(" ")
@@ -26,14 +26,14 @@ sealed class Hoi4Relation(private val left: String, private val right: Hoi4Relat
     }
 }
 
-class Hoi4RelationEq(left: String, right: Hoi4RelationRight): Hoi4Relation(left, right) {
+class Hoi4FileRelationEq(left: String, right: Hoi4FileRelationRight): Hoi4FileRelation(left, right) {
     override val relationString: String = "="
 }
 
-class Hoi4RelationLt(left: String, right: Hoi4RelationRight): Hoi4Relation(left, right) {
+class Hoi4FileRelationLt(left: String, right: Hoi4FileRelationRight): Hoi4FileRelation(left, right) {
     override val relationString: String = "<"
 }
 
-class Hoi4RelationGt(left: String, right: Hoi4RelationRight): Hoi4Relation(left, right) {
+class Hoi4FileRelationGt(left: String, right: Hoi4FileRelationRight): Hoi4FileRelation(left, right) {
     override val relationString: String = ">"
 }
