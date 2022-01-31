@@ -1,31 +1,29 @@
 package jp.unaguna.hoi4modding.struct.common
 
-import jp.unaguna.hoi4modding.hoi4file.Hoi4FileNumber
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationEq
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationGt
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationLt
-import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationRight
 
-interface Parameter<T : Hoi4FileRelationRight> {
+interface Parameter<T : Value> {
     fun toHoi4Relation(): Hoi4FileRelation?
 }
 
-interface AdjustableParameter<T : Hoi4FileRelationRight, U : Any> : Parameter<T> {
+interface AdjustableParameter<T : Value, U : Any> : Parameter<T> {
     infix fun eq(value: T)
     infix fun eq(value: U)
 }
 
-interface ComparableParameter<T : Hoi4FileRelationRight, U : Any> : Parameter<T>, AdjustableParameter<T, U> {
+interface ComparableParameter<T : Value, U : Any> : Parameter<T>, AdjustableParameter<T, U> {
     infix fun lt(value: T)
     infix fun lt(value: U)
     infix fun gt(value: T)
     infix fun gt(value: U)
 }
 
-internal abstract class AbstractParameter<T : Hoi4FileRelationRight>(protected val parameterName: String) : Parameter<T>
+internal abstract class AbstractParameter<T : Value>(protected val parameterName: String) : Parameter<T>
 
-internal abstract class AbstractAdjustableParameter<T : Hoi4FileRelationRight, U : Any>(parameterName: String) :
+internal abstract class AbstractAdjustableParameter<T : Value, U : Any>(parameterName: String) :
     AbstractParameter<T>(parameterName), AdjustableParameter<T, U> {
 
     private var value: T? = null
@@ -39,7 +37,7 @@ internal abstract class AbstractAdjustableParameter<T : Hoi4FileRelationRight, U
     }
 }
 
-internal abstract class AbstractComparableParameter<T : Hoi4FileRelationRight, U : Any>(parameterName: String) :
+internal abstract class AbstractComparableParameter<T : Value, U : Any>(parameterName: String) :
     AbstractParameter<T>(parameterName), AdjustableParameter<T, U>, ComparableParameter<T, U> {
     private var value: T? = null
     private var operator: Operator? = null
@@ -75,29 +73,29 @@ internal abstract class AbstractComparableParameter<T : Hoi4FileRelationRight, U
     }
 }
 
-internal class ConcreteAdjustableParameter<T : Hoi4FileRelationRight>(parameterName: String) :
+internal class ConcreteAdjustableParameter<T : Value>(parameterName: String) :
     AbstractAdjustableParameter<T, Nothing>(parameterName) {
     override infix fun eq(value: Nothing) {
         throw UnsupportedOperationException()
     }
 }
 
-internal class AdjustableInteger(parameterName: String) : AbstractAdjustableParameter<Hoi4FileNumber, Int>(parameterName) {
+internal class AdjustableInteger(parameterName: String) : AbstractAdjustableParameter<Hoi4Number, Int>(parameterName) {
     override infix fun eq(value: Int) {
-        super.eq(Hoi4FileNumber(value))
+        super.eq(Hoi4Number(value))
     }
 }
 
-internal class ComparableInteger(parameterName: String) : AbstractComparableParameter<Hoi4FileNumber, Int>(parameterName) {
+internal class ComparableInteger(parameterName: String) : AbstractComparableParameter<Hoi4Number, Int>(parameterName) {
     override infix fun eq(value: Int) {
-        super.eq(Hoi4FileNumber(value))
+        super.eq(Hoi4Number(value))
     }
 
     override infix fun lt(value: Int) {
-        super.lt(Hoi4FileNumber(value))
+        super.lt(Hoi4Number(value))
     }
 
     override infix fun gt(value: Int) {
-        super.gt(Hoi4FileNumber(value))
+        super.gt(Hoi4Number(value))
     }
 }

@@ -10,7 +10,7 @@ abstract class CountryHistory: EffectCountry() {
     abstract val capital: IState?
     abstract val oob: IOob?
 
-    override fun toHoi4List(): Hoi4FileList<Hoi4FileRelation> {
+    override fun toHoi4FileObject(): Hoi4FileList<Hoi4FileRelation> {
         return relationList {
             capital?.let { capital ->
                 "capital" eq capital
@@ -18,11 +18,11 @@ abstract class CountryHistory: EffectCountry() {
             oob?.let { oob ->
                 "OOB" eq oob
             }
-            appendAll(super.toHoi4List())
+            appendAll(super.toHoi4FileObject())
         }
     }
 
     fun fileList(): List<Pair<String, Hoi4FileObject>> {
-        return listOf("history/countries/${country.tag} - ${country.countryName}.txt" to this.toHoi4List())
+        return listOf("history/countries/${country.tag} - ${country.countryName}.txt" to this.toHoi4FileObject())
     }
 }

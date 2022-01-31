@@ -1,21 +1,23 @@
 package jp.unaguna.hoi4modding.hoi4file
 
-sealed class Hoi4FileObject {
+interface Hoi4FileObject {
     fun serialize(): String = serialize(0)
-    abstract fun serialize(baseIndent: Int): String
+    fun serialize(baseIndent: Int): String
 }
 
-data class Hoi4FileBool(private val bool: Boolean) : Hoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
+sealed class AbstractHoi4FileObject: Hoi4FileObject
+
+data class Hoi4FileBool(private val bool: Boolean) : AbstractHoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
     override fun toString(): String = if (this.bool) "yes" else "no"
     override fun serialize(baseIndent: Int): String = this.toString()
 }
 
-data class Hoi4FileString(private val string: String): Hoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
+data class Hoi4FileString(private val string: String): AbstractHoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
     override fun toString(): String = this.string
     override fun serialize(baseIndent: Int): String = "\"${this.string}\""
 }
 
-data class Hoi4FileNumber(private val number: Number): Hoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
+data class Hoi4FileNumber(private val number: Number): AbstractHoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
     override fun toString(): String = this.number.toString()
     override fun serialize(baseIndent: Int): String = this.toString()
 }
@@ -24,7 +26,7 @@ interface Hoi4FileListElement {
     fun serialize(baseIndent: Int): String
 }
 
-class Hoi4FileList<E: Hoi4FileListElement>(private val list: List<E>): Hoi4FileObject(), Hoi4FileRelationRight, Collection<E> by list {
+class Hoi4FileList<E: Hoi4FileListElement>(private val list: List<E>): AbstractHoi4FileObject(), Hoi4FileRelationRight, Collection<E> by list {
     override fun serialize(baseIndent: Int): String {
         return buildString {
             for(element in list) {
