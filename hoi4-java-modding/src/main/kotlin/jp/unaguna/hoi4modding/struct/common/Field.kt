@@ -86,6 +86,12 @@ internal class ComparableInteger(fieldName: String, struct: AbstractStruct) : Ab
     }
 }
 
+internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4String, String, L>(fieldName, struct) {
+    override infix fun eq(value: String) {
+        super.eq(Hoi4String(value))
+    }
+}
+
 internal class AdjustableEffectCountry(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: EffectCountry.()->Unit) {
         super.eq(ConcreteEffectCountry(value))

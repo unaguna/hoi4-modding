@@ -5,6 +5,7 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
 import jp.unaguna.hoi4modding.hoi4file.relationList
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.EffectCountry
+import jp.unaguna.hoi4modding.struct.IFlag
 
 abstract class AbstractStruct : Value {
     private val parameterList: MutableList<Parameter> = mutableListOf()
@@ -34,5 +35,9 @@ abstract class AbstractStruct : Value {
 
     protected fun comparableInt(parameterName: String): ComparableField<Hoi4Number, Int, Label<Hoi4Number>> {
         return ComparableInteger(parameterName, this)
+    }
+
+    protected fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
+        return AdjustableString(parameterName, this)
     }
 }
