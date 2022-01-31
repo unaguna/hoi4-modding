@@ -20,19 +20,19 @@ abstract class AbstractStruct : Value {
         parameterList.add(parameter)
     }
 
-    protected fun adjustableEffectCountry(parameterName: String): AdjustableField<EffectCountry, EffectCountry.()->Unit> {
+    protected fun adjustableEffectCountry(parameterName: String): AdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing> {
         return AdjustableEffectCountry(parameterName, this)
     }
 
-    protected fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit> {
+    protected fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing> {
         return AdjustableConditionCountry(parameterName, this)
     }
 
-    protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int> {
+    protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int, Label<Hoi4Number>> {
         return AdjustableInteger(parameterName, this)
     }
 
-    protected fun comparableInt(parameterName: String): ComparableField<Hoi4Number, Int> {
+    protected fun comparableInt(parameterName: String): ComparableField<Hoi4Number, Int, Label<Hoi4Number>> {
         return ComparableInteger(parameterName, this)
     }
 }

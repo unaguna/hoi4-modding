@@ -1,10 +1,10 @@
 package jp.unaguna.hoi4modding.struct
 
-import jp.unaguna.hoi4modding.hoi4file.AsHoi4Number
-import jp.unaguna.hoi4modding.hoi4file.Hoi4FileNumber
+import jp.unaguna.hoi4modding.struct.common.Hoi4Number
+import jp.unaguna.hoi4modding.struct.common.Label
 
-interface IState : AsHoi4Number {
+interface IState : Label<Hoi4Number> {
     val stateNumber: Int
-
-    override fun asHoi4Number(): Hoi4FileNumber = Hoi4FileNumber(stateNumber)
+    override val label: Hoi4Number
+        get() = Hoi4Number(stateNumber)
 }

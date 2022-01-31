@@ -1,10 +1,10 @@
 package jp.unaguna.hoi4modding.struct
 
-import jp.unaguna.hoi4modding.hoi4file.AsHoi4String
-import jp.unaguna.hoi4modding.hoi4file.Hoi4FileString
+import jp.unaguna.hoi4modding.struct.common.Hoi4String
+import jp.unaguna.hoi4modding.struct.common.Label
 
-interface IOob: AsHoi4String {
+interface IOob: Label<Hoi4String> {
     val oobName: String
-
-    override fun asHoi4String(): Hoi4FileString = Hoi4FileString(oobName)
+    override val label: Hoi4String
+        get() = Hoi4String(oobName)
 }

@@ -1,5 +1,7 @@
 package jp.unaguna.hoi4modding.hoi4file
 
+import jp.unaguna.hoi4modding.struct.common.Label
+
 interface Hoi4FileObject {
     fun serialize(): String = serialize(0)
     fun serialize(baseIndent: Int): String
@@ -55,11 +57,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.eq(right: Hoi4FileRelationRight) {
         append(Hoi4FileRelationEq(this, right))
     }
-    infix fun String.eq(right: AsHoi4Number) {
-        append(Hoi4FileRelationEq(this, right.asHoi4Number()))
-    }
-    infix fun String.eq(right: AsHoi4String) {
-        append(Hoi4FileRelationEq(this, right.asHoi4String()))
+    infix fun String.eq(right: Label<*>) {
+        append(Hoi4FileRelationEq(this, right.label))
     }
     infix fun String.eq(right: Number) {
         append(Hoi4FileRelationEq(this, Hoi4FileNumber(right)))
@@ -73,11 +72,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.lt(right: Hoi4FileRelationRight) {
         append(Hoi4FileRelationLt(this, right))
     }
-    infix fun String.lt(right: AsHoi4Number) {
-        append(Hoi4FileRelationLt(this, right.asHoi4Number()))
-    }
-    infix fun String.lt(right: AsHoi4String) {
-        append(Hoi4FileRelationLt(this, right.asHoi4String()))
+    infix fun String.lt(right: Label<*>) {
+        append(Hoi4FileRelationLt(this, right.label))
     }
     infix fun String.lt(right: Number) {
         append(Hoi4FileRelationLt(this, Hoi4FileNumber(right)))
@@ -91,11 +87,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.gt(right: Hoi4FileRelationRight) {
         append(Hoi4FileRelationGt(this, right))
     }
-    infix fun String.gt(right: AsHoi4Number) {
-        append(Hoi4FileRelationGt(this, right.asHoi4Number()))
-    }
-    infix fun String.gt(right: AsHoi4String) {
-        append(Hoi4FileRelationGt(this, right.asHoi4String()))
+    infix fun String.gt(right: Label<*>) {
+        append(Hoi4FileRelationGt(this, right.label))
     }
     infix fun String.gt(right: Number) {
         append(Hoi4FileRelationGt(this, Hoi4FileNumber(right)))
