@@ -1,7 +1,7 @@
 package jp.unaguna.hoi4modding.hoi4file
 
 
-interface Hoi4FileRelationRight : Hoi4FileObject, ToHoi4FileRelationRight<Hoi4FileRelationRight> {
+interface Hoi4FileRelationRight : Hoi4FileObject, Hoi4FileListElement, ToHoi4FileRelationRight<Hoi4FileRelationRight> {
     override fun toHoi4FileObject() = this
 }
 

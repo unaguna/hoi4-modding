@@ -9,7 +9,7 @@ import jp.unaguna.hoi4modding.hoi4file.ToHoi4FileObject
 data class Parameter(
     val field: Field<*>,
     val operator: Operator,
-    val value: Value,
+    val value: Value<*>,
 ) : ToHoi4FileObject<Hoi4FileRelation> {
 
     override fun toHoi4FileObject(): Hoi4FileRelation {

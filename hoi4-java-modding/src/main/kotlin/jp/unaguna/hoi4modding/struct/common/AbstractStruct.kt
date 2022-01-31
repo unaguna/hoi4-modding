@@ -2,14 +2,16 @@ package jp.unaguna.hoi4modding.struct.common
 
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileList
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
+import jp.unaguna.hoi4modding.hoi4file.Hoi4FileString
 import jp.unaguna.hoi4modding.hoi4file.relationList
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
+import jp.unaguna.hoi4modding.struct.IIdea
 
-abstract class AbstractStruct : Value {
+abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
     private val parameterList: MutableList<Parameter> = mutableListOf()
 
     override fun toHoi4FileObject(): Hoi4FileList<Hoi4FileRelation> {
@@ -49,5 +51,9 @@ abstract class AbstractStruct : Value {
 
     protected fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
         return AdjustableString(parameterName, this)
+    }
+
+    protected fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileString, Hoi4String>, List<IIdea>, Nothing> {
+        return AdjustableList(parameterName, this)
     }
 }

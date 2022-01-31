@@ -1,5 +1,6 @@
 package jp.unaguna.hoi4modding.struct.common
 
+import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationRight
 import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
@@ -9,11 +10,11 @@ import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
 
-interface Field<T : Value> {
+interface Field<T : Value<*>> {
     val fieldName: String
 }
 
-interface AdjustableField<T : Value, U : Any, L: Label<T>> : Field<T> {
+interface AdjustableField<T : Value<*>, U : Any, L: Label<T>> : Field<T> {
     infix fun eq(value: T)
     infix fun eq(value: U)
     infix fun eq(value: L) {
@@ -21,7 +22,7 @@ interface AdjustableField<T : Value, U : Any, L: Label<T>> : Field<T> {
     }
 }
 
-interface ComparableField<T : Value, U : Any, L: Label<T>> : Field<T> {
+interface ComparableField<T : Value<*>, U : Any, L: Label<T>> : Field<T> {
     infix fun eq(value: T)
     infix fun eq(value: U)
     infix fun eq(value: L) {
@@ -39,23 +40,30 @@ interface ComparableField<T : Value, U : Any, L: Label<T>> : Field<T> {
     }
 }
 
-internal abstract class AbstractField<T : Value, L: Label<T>>(override val fieldName: String, protected val struct: AbstractStruct) : Field<T> {
+internal abstract class AbstractField<T : Value<*>, L: Label<T>>(
+    override val fieldName: String,
+    protected val struct: AbstractStruct,
+) : Field<T> {
     internal fun registerParameter(operator: Operator, value: T) {
         val parameter = Parameter(this, operator, value)
         struct.addParameter(parameter)
     }
 }
 
-internal abstract class AbstractAdjustableField<T : Value, U : Any, L: Label<T>>(fieldName: String, struct: AbstractStruct) :
-    AbstractField<T, L>(fieldName, struct), AdjustableField<T, U, L> {
+internal abstract class AbstractAdjustableField<T : Value<*>, U : Any, L: Label<T>>(
+    fieldName: String,
+    struct: AbstractStruct
+) : AbstractField<T, L>(fieldName, struct), AdjustableField<T, U, L> {
 
     override infix fun eq(value: T) {
         registerParameter(Operator.EQ, value)
     }
 }
 
-internal abstract class AbstractComparableField<T : Value, U : Any, L: Label<T>>(fieldName: String, struct: AbstractStruct) :
-    AbstractField<T, L>(fieldName, struct), ComparableField<T, U, L> {
+internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<T>>(
+    fieldName: String,
+    struct: AbstractStruct,
+) : AbstractField<T, L>(fieldName, struct), ComparableField<T, U, L> {
 
     override infix fun eq(value: T) {
         registerParameter(Operator.EQ, value)
@@ -117,5 +125,11 @@ internal class AdjustableEffectState(fieldName: String, struct: AbstractStruct) 
 internal class AdjustableConditionState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionState.()->Unit) {
         super.eq(ConcreteConditionState(value))
+    }
+}
+
+internal class AdjustableList<H: Hoi4FileRelationRight, E: Value<H>, L: Label<E>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ValueList<H, E>, List<L>, Nothing>(fieldName, struct) {
+    override infix fun eq(value: List<L>) {
+        super.eq(ValueList(value.map { it.label }))
     }
 }

@@ -24,9 +24,7 @@ data class Hoi4FileNumber(private val number: Number): AbstractHoi4FileObject(),
     override fun serialize(baseIndent: Int): String = this.toString()
 }
 
-interface Hoi4FileListElement {
-    fun serialize(baseIndent: Int): String
-}
+interface Hoi4FileListElement : Hoi4FileObject
 
 class Hoi4FileList<E: Hoi4FileListElement>(private val list: List<E>): AbstractHoi4FileObject(), Hoi4FileRelationRight, Collection<E> by list {
     override fun serialize(baseIndent: Int): String {
