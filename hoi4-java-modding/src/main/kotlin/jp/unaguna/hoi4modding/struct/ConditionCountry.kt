@@ -1,8 +1,8 @@
 package jp.unaguna.hoi4modding.struct
 
-import jp.unaguna.hoi4modding.struct.common.AbstractStruct
+import jp.unaguna.hoi4modding.struct.common.Scope
 
-abstract class ConditionCountry: AbstractStruct() {
+abstract class ConditionCountry: Condition<Scope.Companion.COUNTRY>() {
     val originalResearchSlots = comparableInt("original_research_slots")
 }
 

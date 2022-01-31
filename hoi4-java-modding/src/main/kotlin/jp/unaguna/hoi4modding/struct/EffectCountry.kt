@@ -1,11 +1,10 @@
 package jp.unaguna.hoi4modding.struct
 
-import jp.unaguna.hoi4modding.struct.common.AbstractStruct
+import jp.unaguna.hoi4modding.struct.common.Scope
 
-abstract class EffectCountry: AbstractStruct() {
+abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val iff = adjustableEffectCountry("if")
     val limit = adjustableConditionCountry("limit")
-    val setGlobalFlag = adjustableFlag("set_global_flag")
     val setResearchSlots = adjustableInt("set_research_slots")
 }
 
