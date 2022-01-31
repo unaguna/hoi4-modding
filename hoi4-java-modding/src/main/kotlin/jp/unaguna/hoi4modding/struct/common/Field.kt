@@ -1,9 +1,13 @@
 package jp.unaguna.hoi4modding.struct.common
 
 import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
+import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
+import jp.unaguna.hoi4modding.struct.ConcreteEffectState
 import jp.unaguna.hoi4modding.struct.ConditionCountry
+import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
+import jp.unaguna.hoi4modding.struct.EffectState
 
 interface Field<T : Value> {
     val fieldName: String
@@ -101,5 +105,17 @@ internal class AdjustableEffectCountry(fieldName: String, struct: AbstractStruct
 internal class AdjustableConditionCountry(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionCountry.()->Unit) {
         super.eq(ConcreteConditionCountry(value))
+    }
+}
+
+internal class AdjustableEffectState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<EffectState, EffectState.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: EffectState.()->Unit) {
+        super.eq(ConcreteEffectState(value))
+    }
+}
+
+internal class AdjustableConditionState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: ConditionState.()->Unit) {
+        super.eq(ConcreteConditionState(value))
     }
 }

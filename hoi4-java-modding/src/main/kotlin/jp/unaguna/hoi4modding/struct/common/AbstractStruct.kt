@@ -4,7 +4,9 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileList
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
 import jp.unaguna.hoi4modding.hoi4file.relationList
 import jp.unaguna.hoi4modding.struct.ConditionCountry
+import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
+import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
 
 abstract class AbstractStruct : Value {
@@ -27,6 +29,14 @@ abstract class AbstractStruct : Value {
 
     protected fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing> {
         return AdjustableConditionCountry(parameterName, this)
+    }
+
+    protected fun adjustableEffectState(parameterName: String): AdjustableField<EffectState, EffectState.()->Unit, Nothing> {
+        return AdjustableEffectState(parameterName, this)
+    }
+
+    protected fun adjustableConditionState(parameterName: String): AdjustableField<ConditionState, ConditionState.()->Unit, Nothing> {
+        return AdjustableConditionState(parameterName, this)
     }
 
     protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int, Label<Hoi4Number>> {
