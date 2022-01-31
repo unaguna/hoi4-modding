@@ -4,6 +4,10 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationEq
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationGt
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationLt
+import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
+import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
+import jp.unaguna.hoi4modding.struct.ConditionCountry
+import jp.unaguna.hoi4modding.struct.EffectCountry
 
 interface Parameter<T : Value> {
     fun toHoi4Relation(): Hoi4FileRelation?
@@ -73,13 +77,6 @@ internal abstract class AbstractComparableParameter<T : Value, U : Any>(paramete
     }
 }
 
-internal class ConcreteAdjustableParameter<T : Value>(parameterName: String) :
-    AbstractAdjustableParameter<T, Nothing>(parameterName) {
-    override infix fun eq(value: Nothing) {
-        throw UnsupportedOperationException()
-    }
-}
-
 internal class AdjustableInteger(parameterName: String) : AbstractAdjustableParameter<Hoi4Number, Int>(parameterName) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
@@ -97,5 +94,17 @@ internal class ComparableInteger(parameterName: String) : AbstractComparablePara
 
     override infix fun gt(value: Int) {
         super.gt(Hoi4Number(value))
+    }
+}
+
+internal class AdjustableEffectCountry(parameterName: String) : AbstractAdjustableParameter<EffectCountry, EffectCountry.()->Unit>(parameterName) {
+    override infix fun eq(value: EffectCountry.()->Unit) {
+        super.eq(ConcreteEffectCountry(value))
+    }
+}
+
+internal class AdjustableConditionCountry(parameterName: String) : AbstractAdjustableParameter<ConditionCountry, ConditionCountry.()->Unit>(parameterName) {
+    override infix fun eq(value: ConditionCountry.()->Unit) {
+        super.eq(ConcreteConditionCountry(value))
     }
 }
