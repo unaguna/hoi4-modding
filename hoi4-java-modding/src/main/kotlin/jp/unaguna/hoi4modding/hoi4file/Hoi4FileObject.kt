@@ -67,8 +67,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.eq(right: String) {
         append(Hoi4FileRelationEq(this, Hoi4FileString(right)))
     }
-    infix fun String.eq(right: ToHoi4List<*>) {
-        append(Hoi4FileRelationEq(this, right.toHoi4List()))
+    infix fun String.eq(right: ToHoi4FileRelationRight<*>) {
+        append(Hoi4FileRelationEq(this, right.toHoi4FileObject()))
     }
     infix fun String.lt(right: Hoi4FileRelationRight) {
         append(Hoi4FileRelationLt(this, right))
@@ -85,8 +85,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.lt(right: String) {
         append(Hoi4FileRelationLt(this, Hoi4FileString(right)))
     }
-    infix fun String.lt(right: ToHoi4List<*>) {
-        append(Hoi4FileRelationLt(this, right.toHoi4List()))
+    infix fun String.lt(right: ToHoi4FileRelationRight<*>) {
+        append(Hoi4FileRelationLt(this, right.toHoi4FileObject()))
     }
     infix fun String.gt(right: Hoi4FileRelationRight) {
         append(Hoi4FileRelationGt(this, right))
@@ -103,8 +103,8 @@ class Hoi4FileRelationListBuilder: Hoi4FileListBuilder<Hoi4FileRelation>() {
     infix fun String.gt(right: String) {
         append(Hoi4FileRelationGt(this, Hoi4FileString(right)))
     }
-    infix fun String.gt(right: ToHoi4List<*>) {
-        append(Hoi4FileRelationGt(this, right.toHoi4List()))
+    infix fun String.gt(right: ToHoi4FileRelationRight<*>) {
+        append(Hoi4FileRelationGt(this, right.toHoi4FileObject()))
     }
 }
 
