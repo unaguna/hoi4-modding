@@ -10,6 +10,7 @@ import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
+import jp.unaguna.hoi4modding.struct.SetTechnology
 
 abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
     private val parameterList: MutableList<Parameter> = mutableListOf()
@@ -41,7 +42,7 @@ abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
         return AdjustableConditionState(parameterName, this)
     }
 
-    protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int, Label<Hoi4Number>> {
+    protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int, Nothing> {
         return AdjustableInteger(parameterName, this)
     }
 
@@ -55,5 +56,9 @@ abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
 
     protected fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileString, Hoi4String>, List<IIdea>, Nothing> {
         return AdjustableList(parameterName, this)
+    }
+
+    protected fun adjustSetTechnology(parameterName: String): AdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing> {
+        return AdjustableSetTechnology(parameterName, this)
     }
 }

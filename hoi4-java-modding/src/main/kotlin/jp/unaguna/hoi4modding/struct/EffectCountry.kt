@@ -7,6 +7,7 @@ abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val limit = adjustableConditionCountry("limit")
     val setResearchSlots = adjustableInt("set_research_slots")
     val addIdeas = adjustableIdeaList("add_ideas")
+    val setTechnology = adjustSetTechnology("set_technology")
 }
 
 internal class ConcreteEffectCountry(initialize: EffectCountry.() -> Unit): EffectCountry() {

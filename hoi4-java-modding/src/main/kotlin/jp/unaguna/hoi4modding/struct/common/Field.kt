@@ -5,10 +5,12 @@ import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
 import jp.unaguna.hoi4modding.struct.ConcreteEffectState
+import jp.unaguna.hoi4modding.struct.ConcreteSetTechnology
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
+import jp.unaguna.hoi4modding.struct.SetTechnology
 
 interface Field<T : Value<*>> {
     val fieldName: String
@@ -78,13 +80,13 @@ internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<
     }
 }
 
-internal class AdjustableInteger(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Number, Int, Label<Hoi4Number>>(fieldName, struct) {
+internal class AdjustableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Number, Int, L>(fieldName, struct) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
     }
 }
 
-internal class ComparableInteger(fieldName: String, struct: AbstractStruct) : AbstractComparableField<Hoi4Number, Int, Label<Hoi4Number>>(fieldName, struct) {
+internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: AbstractStruct) : AbstractComparableField<Hoi4Number, Int, L>(fieldName, struct) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
     }
@@ -125,6 +127,12 @@ internal class AdjustableEffectState(fieldName: String, struct: AbstractStruct) 
 internal class AdjustableConditionState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionState.()->Unit) {
         super.eq(ConcreteConditionState(value))
+    }
+}
+
+internal class AdjustableSetTechnology(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: SetTechnology.()->Unit) {
+        super.eq(ConcreteSetTechnology(value))
     }
 }
 
