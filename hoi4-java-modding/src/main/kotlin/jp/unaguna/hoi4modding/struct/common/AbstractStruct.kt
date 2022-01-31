@@ -7,28 +7,32 @@ import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.EffectCountry
 
 abstract class AbstractStruct : Value {
-    private val parameterList: MutableList<Parameter<*>> = mutableListOf()
+    private val parameterList: MutableList<Parameter> = mutableListOf()
 
     override fun toHoi4FileObject(): Hoi4FileList<Hoi4FileRelation> {
-        val relationList = parameterList.mapNotNull { it.toHoi4Relation() }
+        val relationList = parameterList.map { it.toHoi4FileObject() }
         return relationList {
             appendAll(relationList)
         }
     }
 
-    protected fun adjustableEffectCountry(parameterName: String): AdjustableParameter<EffectCountry, EffectCountry.()->Unit> {
-        return AdjustableEffectCountry(parameterName).also { parameterList.add(it) }
+    internal fun addParameter(parameter: Parameter) {
+        parameterList.add(parameter)
     }
 
-    protected fun adjustableConditionCountry(parameterName: String): AdjustableParameter<ConditionCountry, ConditionCountry.()->Unit> {
-        return AdjustableConditionCountry(parameterName).also { parameterList.add(it) }
+    protected fun adjustableEffectCountry(parameterName: String): AdjustableField<EffectCountry, EffectCountry.()->Unit> {
+        return AdjustableEffectCountry(parameterName, this)
     }
 
-    protected fun adjustableInt(parameterName: String): AdjustableParameter<Hoi4Number, Int> {
-        return AdjustableInteger(parameterName).also { parameterList.add(it) }
+    protected fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit> {
+        return AdjustableConditionCountry(parameterName, this)
     }
 
-    protected fun comparableInt(parameterName: String): ComparableParameter<Hoi4Number, Int> {
-        return ComparableInteger(parameterName).also { parameterList.add(it) }
+    protected fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int> {
+        return AdjustableInteger(parameterName, this)
+    }
+
+    protected fun comparableInt(parameterName: String): ComparableField<Hoi4Number, Int> {
+        return ComparableInteger(parameterName, this)
     }
 }
