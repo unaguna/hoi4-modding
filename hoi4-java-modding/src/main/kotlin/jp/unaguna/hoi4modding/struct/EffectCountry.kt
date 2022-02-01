@@ -8,6 +8,12 @@ abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
     val addIdeas = fieldFactory.adjustableIdeaList("add_ideas")
     val setTechnology = fieldFactory.adjustSetTechnology("set_technology")
+
+    private val setPolitics = fieldFactory.adjustableStruct("set_politics")
+
+    fun setPolitics(rulingParty: IIdeology, action: SetPoliticsBuilder.()->Unit) {
+        setPolitics eq SetPoliticsBuilder(rulingParty).apply(action).build()
+    }
 }
 
 internal class ConcreteEffectCountry(initialize: EffectCountry.() -> Unit): EffectCountry() {

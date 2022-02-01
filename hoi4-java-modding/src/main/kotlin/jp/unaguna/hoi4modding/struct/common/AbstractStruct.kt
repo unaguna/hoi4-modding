@@ -18,4 +18,12 @@ abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
     internal fun addParameter(parameter: Parameter) {
         parameterList.add(parameter)
     }
+
+    internal fun addParameters(parameter: List<Parameter>) {
+        parameterList.addAll(parameter)
+    }
+
+    fun toImmutable(): AbstractStruct {
+        return ImmutableStruct(parameterList)
+    }
 }

@@ -80,6 +80,12 @@ internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<
     }
 }
 
+internal class AdjustableBool(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Bool, Boolean, Nothing>(fieldName, struct) {
+    override infix fun eq(value: Boolean) {
+        super.eq(Hoi4Bool.of(value))
+    }
+}
+
 internal class AdjustableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Number, Int, L>(fieldName, struct) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
@@ -103,6 +109,12 @@ internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struc
 internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4String, String, L>(fieldName, struct) {
     override infix fun eq(value: String) {
         super.eq(Hoi4String(value))
+    }
+}
+
+internal class AdjustableDate(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Date, Nothing, Nothing>(fieldName, struct) {
+    override infix fun eq(value: Nothing) {
+        throw UnsupportedOperationException()
     }
 }
 
@@ -133,6 +145,12 @@ internal class AdjustableConditionState(fieldName: String, struct: AbstractStruc
 internal class AdjustableSetTechnology(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: SetTechnology.()->Unit) {
         super.eq(ConcreteSetTechnology(value))
+    }
+}
+
+internal class AdjustableImmutableStruct(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<AbstractStruct, Nothing, Nothing>(fieldName, struct) {
+    override infix fun eq(value: Nothing) {
+        throw UnsupportedOperationException()
     }
 }
 

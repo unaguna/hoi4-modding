@@ -7,9 +7,14 @@ import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
+import jp.unaguna.hoi4modding.struct.IIdeology
 import jp.unaguna.hoi4modding.struct.SetTechnology
 
 class FieldFactory(private val struct: AbstractStruct) {
+    fun adjustableStruct(parameterName: String): AdjustableField<AbstractStruct, Nothing, Nothing> {
+        return AdjustableImmutableStruct(parameterName, struct)
+    }
+
     fun adjustableEffectCountry(parameterName: String): AdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing> {
         return AdjustableEffectCountry(parameterName, struct)
     }
@@ -26,6 +31,10 @@ class FieldFactory(private val struct: AbstractStruct) {
         return AdjustableConditionState(parameterName, struct)
     }
 
+    fun adjustableBool(parameterName: String): AdjustableField<Hoi4Bool, Boolean, Nothing> {
+        return AdjustableBool(parameterName, struct)
+    }
+
     fun adjustableInt(parameterName: String): AdjustableField<Hoi4Number, Int, Nothing> {
         return AdjustableInteger(parameterName, struct)
     }
@@ -34,7 +43,15 @@ class FieldFactory(private val struct: AbstractStruct) {
         return ComparableInteger(parameterName, struct)
     }
 
+    fun adjustableDate(parameterName: String): AdjustableField<Hoi4Date, Nothing, Nothing> {
+        return AdjustableDate(parameterName, struct)
+    }
+
     fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
+        return AdjustableString(parameterName, struct)
+    }
+
+    fun adjustableIdeology(parameterName: String): AdjustableField<Hoi4String, String, IIdeology> {
         return AdjustableString(parameterName, struct)
     }
 
