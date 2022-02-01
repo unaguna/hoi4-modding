@@ -6,9 +6,9 @@ import jp.unaguna.hoi4modding.struct.common.Scope
 
 abstract class Condition<S: Scope>: AbstractStruct() {
     fun state(state: IState): AdjustableField<ConditionState, ConditionState.() -> Unit, Nothing> {
-        return adjustableConditionState(state.stateNumber.toString())
+        return fieldFactory.adjustableConditionState(state.stateNumber.toString())
     }
     fun state(state: Int): AdjustableField<ConditionState, ConditionState.() -> Unit, Nothing> {
-        return adjustableConditionState(state.toString())
+        return fieldFactory.adjustableConditionState(state.toString())
     }
 }

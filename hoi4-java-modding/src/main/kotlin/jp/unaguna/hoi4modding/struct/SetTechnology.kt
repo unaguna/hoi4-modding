@@ -6,10 +6,10 @@ import jp.unaguna.hoi4modding.struct.common.Hoi4Number
 
 abstract class SetTechnology : AbstractStruct() {
     fun tech(tech: ITechnology): AdjustableField<Hoi4Number, Int, Nothing> {
-        return adjustableInt(tech.technologyName)
+        return fieldFactory.adjustableInt(tech.technologyName)
     }
     fun tech(tech: String): AdjustableField<Hoi4Number, Int, Nothing> {
-        return adjustableInt(tech)
+        return fieldFactory.adjustableInt(tech)
     }
 }
 
