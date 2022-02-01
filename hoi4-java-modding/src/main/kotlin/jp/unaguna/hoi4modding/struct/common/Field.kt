@@ -44,7 +44,7 @@ interface ComparableField<T : Value<*>, U : Any, L: Label<T>> : Field<T> {
 
 internal abstract class AbstractField<T : Value<*>, L: Label<T>>(
     override val fieldName: String,
-    protected val struct: AbstractStruct,
+    protected val struct: MutableStruct,
 ) : Field<T> {
     internal fun registerParameter(operator: Operator, value: T) {
         val parameter = Parameter(this, operator, value)
@@ -54,7 +54,7 @@ internal abstract class AbstractField<T : Value<*>, L: Label<T>>(
 
 internal abstract class AbstractAdjustableField<T : Value<*>, U : Any, L: Label<T>>(
     fieldName: String,
-    struct: AbstractStruct
+    struct: MutableStruct
 ) : AbstractField<T, L>(fieldName, struct), AdjustableField<T, U, L> {
 
     override infix fun eq(value: T) {
@@ -64,7 +64,7 @@ internal abstract class AbstractAdjustableField<T : Value<*>, U : Any, L: Label<
 
 internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<T>>(
     fieldName: String,
-    struct: AbstractStruct,
+    struct: MutableStruct,
 ) : AbstractField<T, L>(fieldName, struct), ComparableField<T, U, L> {
 
     override infix fun eq(value: T) {
@@ -80,19 +80,19 @@ internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<
     }
 }
 
-internal class AdjustableBool(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Bool, Boolean, Nothing>(fieldName, struct) {
+internal class AdjustableBool(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Bool, Boolean, Nothing>(fieldName, struct) {
     override infix fun eq(value: Boolean) {
         super.eq(Hoi4Bool.of(value))
     }
 }
 
-internal class AdjustableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Number, Int, L>(fieldName, struct) {
+internal class AdjustableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Number, Int, L>(fieldName, struct) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
     }
 }
 
-internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: AbstractStruct) : AbstractComparableField<Hoi4Number, Int, L>(fieldName, struct) {
+internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struct: MutableStruct) : AbstractComparableField<Hoi4Number, Int, L>(fieldName, struct) {
     override infix fun eq(value: Int) {
         super.eq(Hoi4Number(value))
     }
@@ -106,55 +106,55 @@ internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struc
     }
 }
 
-internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4String, String, L>(fieldName, struct) {
+internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4String, String, L>(fieldName, struct) {
     override infix fun eq(value: String) {
         super.eq(Hoi4String(value))
     }
 }
 
-internal class AdjustableDate(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<Hoi4Date, Nothing, Nothing>(fieldName, struct) {
+internal class AdjustableDate(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Date, Nothing, Nothing>(fieldName, struct) {
     override infix fun eq(value: Nothing) {
         throw UnsupportedOperationException()
     }
 }
 
-internal class AdjustableEffectCountry(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing>(fieldName, struct) {
+internal class AdjustableEffectCountry(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: EffectCountry.()->Unit) {
         super.eq(ConcreteEffectCountry(value))
     }
 }
 
-internal class AdjustableConditionCountry(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing>(fieldName, struct) {
+internal class AdjustableConditionCountry(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionCountry.()->Unit) {
         super.eq(ConcreteConditionCountry(value))
     }
 }
 
-internal class AdjustableEffectState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<EffectState, EffectState.()->Unit, Nothing>(fieldName, struct) {
+internal class AdjustableEffectState(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<EffectState, EffectState.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: EffectState.()->Unit) {
         super.eq(ConcreteEffectState(value))
     }
 }
 
-internal class AdjustableConditionState(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
+internal class AdjustableConditionState(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionState.()->Unit) {
         super.eq(ConcreteConditionState(value))
     }
 }
 
-internal class AdjustableSetTechnology(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing>(fieldName, struct) {
+internal class AdjustableSetTechnology(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: SetTechnology.()->Unit) {
         super.eq(ConcreteSetTechnology(value))
     }
 }
 
-internal class AdjustableImmutableStruct(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<AbstractStruct, Nothing, Nothing>(fieldName, struct) {
+internal class AdjustableImmutableStruct(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Struct, Nothing, Nothing>(fieldName, struct) {
     override infix fun eq(value: Nothing) {
         throw UnsupportedOperationException()
     }
 }
 
-internal class AdjustableList<H: Hoi4FileRelationRight, E: Value<H>, L: Label<E>>(fieldName: String, struct: AbstractStruct) : AbstractAdjustableField<ValueList<H, E>, List<L>, Nothing>(fieldName, struct) {
+internal class AdjustableList<H: Hoi4FileRelationRight, E: Value<H>, L: Label<E>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<ValueList<H, E>, List<L>, Nothing>(fieldName, struct) {
     override infix fun eq(value: List<L>) {
         super.eq(ValueList(value.map { it.label }))
     }

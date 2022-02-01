@@ -1,9 +1,10 @@
 package jp.unaguna.hoi4modding.struct
 
-import jp.unaguna.hoi4modding.struct.common.AbstractStruct
+import jp.unaguna.hoi4modding.struct.common.Hoi4Struct
 import jp.unaguna.hoi4modding.struct.common.Hoi4String
+import jp.unaguna.hoi4modding.struct.common.MutableStruct
 
-class SetPoliticsBuilder(rulingParty: Hoi4String) : AbstractStruct() {
+class SetPoliticsBuilder(rulingParty: Hoi4String) : MutableStruct() {
     constructor(rulingParty: String): this(Hoi4String(rulingParty))
     constructor(rulingParty: IIdeology): this(rulingParty.label)
 
@@ -16,7 +17,7 @@ class SetPoliticsBuilder(rulingParty: Hoi4String) : AbstractStruct() {
         this.rulingParty eq rulingParty
     }
 
-    fun build(): AbstractStruct {
+    fun build(): Hoi4Struct {
         return this.toImmutable()
     }
 }

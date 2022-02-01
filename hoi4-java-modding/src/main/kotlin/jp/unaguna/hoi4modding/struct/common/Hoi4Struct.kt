@@ -4,9 +4,8 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileList
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelation
 import jp.unaguna.hoi4modding.hoi4file.relationList
 
-abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
-    private val parameterList: MutableList<Parameter> = mutableListOf()
-    protected val fieldFactory by lazy { FieldFactory(this) }
+interface Hoi4Struct : Value<Hoi4FileList<Hoi4FileRelation>> {
+    val parameterList: List<Parameter>
 
     override fun toHoi4FileObject(): Hoi4FileList<Hoi4FileRelation> {
         val relationList = parameterList.map { it.toHoi4FileObject() }
@@ -15,15 +14,7 @@ abstract class AbstractStruct : Value<Hoi4FileList<Hoi4FileRelation>> {
         }
     }
 
-    internal fun addParameter(parameter: Parameter) {
-        parameterList.add(parameter)
-    }
-
-    internal fun addParameters(parameter: List<Parameter>) {
-        parameterList.addAll(parameter)
-    }
-
-    fun toImmutable(): AbstractStruct {
+    fun toImmutable(): Hoi4Struct {
         return ImmutableStruct(parameterList)
     }
 }

@@ -10,8 +10,8 @@ import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
 import jp.unaguna.hoi4modding.struct.SetTechnology
 
-class FieldFactory(private val struct: AbstractStruct) {
-    fun adjustableStruct(parameterName: String): AdjustableField<AbstractStruct, Nothing, Nothing> {
+class FieldFactory(private val struct: MutableStruct) {
+    fun adjustableStruct(parameterName: String): AdjustableField<Hoi4Struct, Nothing, Nothing> {
         return AdjustableImmutableStruct(parameterName, struct)
     }
 
