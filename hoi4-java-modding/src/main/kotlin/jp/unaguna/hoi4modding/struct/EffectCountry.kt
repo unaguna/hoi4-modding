@@ -31,6 +31,13 @@ abstract class EffectCountryHistory: AbstractEffectCountry() {
     val capital = fieldFactory.adjustableState("capital")
     val oob = fieldFactory.adjustableOob("OOB")
     val setConvoys = fieldFactory.adjustableInt("set_convoys")
+    val recruitCharacter = fieldFactory.adjustableCharacter("recruit_character")
+
+    fun recruitCharacters(vararg characters: ICharacter) {
+        for (character in characters) {
+            recruitCharacter eq character
+        }
+    }
 }
 
 internal class ConcreteEffectCountryHistory(initialize: EffectCountryHistory.() -> Unit): EffectCountryHistory() {

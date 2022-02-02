@@ -6,6 +6,7 @@ import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
+import jp.unaguna.hoi4modding.struct.ICharacter
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
@@ -68,6 +69,10 @@ class FieldFactory(private val struct: MutableStruct) {
     }
 
     fun adjustableOob(parameterName: String): AdjustableField<Hoi4String, String, IOob> {
+        return AdjustableString(parameterName, struct)
+    }
+
+    fun adjustableCharacter(parameterName: String): AdjustableField<Hoi4String, String, ICharacter> {
         return AdjustableString(parameterName, struct)
     }
 
