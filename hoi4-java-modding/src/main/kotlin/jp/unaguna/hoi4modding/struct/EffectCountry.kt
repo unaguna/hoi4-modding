@@ -2,8 +2,7 @@ package jp.unaguna.hoi4modding.struct
 
 import jp.unaguna.hoi4modding.struct.common.Scope
 
-abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
-    val iff = fieldFactory.adjustableEffectCountry("if")
+sealed class AbstractEffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val limit = fieldFactory.adjustableConditionCountry("limit")
     val setPopularities = fieldFactory.adjustableIdeologyIntStruct("set_popularities")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
@@ -17,7 +16,24 @@ abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     }
 }
 
+abstract class EffectCountry: AbstractEffectCountry() {
+    val iff = fieldFactory.adjustableEffectCountry("if")
+}
+
 internal class ConcreteEffectCountry(initialize: EffectCountry.() -> Unit): EffectCountry() {
+    init {
+        initialize(this)
+    }
+}
+
+abstract class EffectCountryHistory: AbstractEffectCountry() {
+    val iff = fieldFactory.adjustableEffectCountryHistory("if")
+    val capital = fieldFactory.adjustableState("capital")
+    val oob = fieldFactory.adjustableOob("OOB")
+    val setConvoys = fieldFactory.adjustableInt("set_convoys")
+}
+
+internal class ConcreteEffectCountryHistory(initialize: EffectCountryHistory.() -> Unit): EffectCountryHistory() {
     init {
         initialize(this)
     }

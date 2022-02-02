@@ -4,12 +4,14 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationRight
 import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
+import jp.unaguna.hoi4modding.struct.ConcreteEffectCountryHistory
 import jp.unaguna.hoi4modding.struct.ConcreteEffectState
 import jp.unaguna.hoi4modding.struct.ConcreteIdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConcreteTechnologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
+import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
@@ -123,6 +125,12 @@ internal class AdjustableDate(fieldName: String, struct: MutableStruct) : Abstra
 internal class AdjustableEffectCountry(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: EffectCountry.()->Unit) {
         super.eq(ConcreteEffectCountry(value))
+    }
+}
+
+internal class AdjustableEffectCountryHistory(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<EffectCountryHistory, EffectCountryHistory.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: EffectCountryHistory.()->Unit) {
+        super.eq(ConcreteEffectCountryHistory(value))
     }
 }
 

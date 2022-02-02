@@ -4,10 +4,13 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileString
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
+import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
+import jp.unaguna.hoi4modding.struct.IOob
+import jp.unaguna.hoi4modding.struct.IState
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
@@ -18,6 +21,10 @@ class FieldFactory(private val struct: MutableStruct) {
 
     fun adjustableEffectCountry(parameterName: String): AdjustableField<EffectCountry, EffectCountry.()->Unit, Nothing> {
         return AdjustableEffectCountry(parameterName, struct)
+    }
+
+    fun adjustableEffectCountryHistory(parameterName: String): AdjustableField<EffectCountryHistory, EffectCountryHistory.()->Unit, Nothing> {
+        return AdjustableEffectCountryHistory(parameterName, struct)
     }
 
     fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing> {
@@ -48,11 +55,19 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableDate(parameterName, struct)
     }
 
+    fun adjustableState(parameterName: String): AdjustableField<Hoi4Number, Int, IState> {
+        return AdjustableInteger(parameterName, struct)
+    }
+
     fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
         return AdjustableString(parameterName, struct)
     }
 
     fun adjustableIdeology(parameterName: String): AdjustableField<Hoi4String, String, IIdeology> {
+        return AdjustableString(parameterName, struct)
+    }
+
+    fun adjustableOob(parameterName: String): AdjustableField<Hoi4String, String, IOob> {
         return AdjustableString(parameterName, struct)
     }
 
