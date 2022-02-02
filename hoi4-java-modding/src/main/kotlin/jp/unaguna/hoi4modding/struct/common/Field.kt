@@ -5,11 +5,13 @@ import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
 import jp.unaguna.hoi4modding.struct.ConcreteEffectState
+import jp.unaguna.hoi4modding.struct.ConcreteIdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConcreteTechnologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
+import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
 interface Field<T : Value<*>> {
@@ -145,6 +147,12 @@ internal class AdjustableConditionState(fieldName: String, struct: MutableStruct
 internal class AdjustableTechnologyIntStruct(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<TechnologyIntStruct, TechnologyIntStruct.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: TechnologyIntStruct.()->Unit) {
         super.eq(ConcreteTechnologyIntStruct(value))
+    }
+}
+
+internal class AdjustableIdeologyIntStruct(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<IdeologyIntStruct, IdeologyIntStruct.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: IdeologyIntStruct.()->Unit) {
+        super.eq(ConcreteIdeologyIntStruct(value))
     }
 }
 

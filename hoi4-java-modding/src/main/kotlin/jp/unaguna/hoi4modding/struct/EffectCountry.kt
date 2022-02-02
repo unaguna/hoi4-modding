@@ -5,6 +5,7 @@ import jp.unaguna.hoi4modding.struct.common.Scope
 abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val iff = fieldFactory.adjustableEffectCountry("if")
     val limit = fieldFactory.adjustableConditionCountry("limit")
+    val setPopularities = fieldFactory.adjustableIdeologyIntStruct("set_popularities")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
     val addIdeas = fieldFactory.adjustableIdeaList("add_ideas")
     val setTechnology = fieldFactory.adjustableTechnologyIntStruct("set_technology")

@@ -8,6 +8,7 @@ import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
+import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
 class FieldFactory(private val struct: MutableStruct) {
@@ -61,5 +62,9 @@ class FieldFactory(private val struct: MutableStruct) {
 
     fun adjustableTechnologyIntStruct(parameterName: String): AdjustableField<TechnologyIntStruct, TechnologyIntStruct.()->Unit, Nothing> {
         return AdjustableTechnologyIntStruct(parameterName, struct)
+    }
+
+    fun adjustableIdeologyIntStruct(parameterName: String): AdjustableField<IdeologyIntStruct, IdeologyIntStruct.()->Unit, Nothing> {
+        return AdjustableIdeologyIntStruct(parameterName, struct)
     }
 }
