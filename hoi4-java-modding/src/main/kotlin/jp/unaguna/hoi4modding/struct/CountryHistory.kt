@@ -10,6 +10,9 @@ abstract class CountryHistory: EffectCountry() {
     abstract val capital: IState?
     abstract val oob: IOob?
 
+    // TODO: iff 内でも指定できるように。iff に指定するクロージャが EffectCountry だと、EffectCountry.setConvoys が無いため指定できない。
+    val setConvoys = fieldFactory.adjustableInt("set_convoys")
+
     override fun toHoi4FileObject(): Hoi4FileList<Hoi4FileRelation> {
         return relationList {
             capital?.let { capital ->
