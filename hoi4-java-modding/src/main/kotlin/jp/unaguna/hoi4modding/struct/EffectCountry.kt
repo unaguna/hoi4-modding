@@ -7,7 +7,7 @@ abstract class EffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val limit = fieldFactory.adjustableConditionCountry("limit")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
     val addIdeas = fieldFactory.adjustableIdeaList("add_ideas")
-    val setTechnology = fieldFactory.adjustSetTechnology("set_technology")
+    val setTechnology = fieldFactory.adjustableTechnologyIntStruct("set_technology")
 
     private val setPolitics = fieldFactory.adjustableStruct("set_politics")
 

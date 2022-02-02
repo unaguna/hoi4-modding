@@ -5,12 +5,12 @@ import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
 import jp.unaguna.hoi4modding.struct.ConcreteEffectState
-import jp.unaguna.hoi4modding.struct.ConcreteSetTechnology
+import jp.unaguna.hoi4modding.struct.ConcreteTechnologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectState
-import jp.unaguna.hoi4modding.struct.SetTechnology
+import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
 interface Field<T : Value<*>> {
     val fieldName: String
@@ -142,9 +142,9 @@ internal class AdjustableConditionState(fieldName: String, struct: MutableStruct
     }
 }
 
-internal class AdjustableSetTechnology(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<SetTechnology, SetTechnology.()->Unit, Nothing>(fieldName, struct) {
-    override infix fun eq(value: SetTechnology.()->Unit) {
-        super.eq(ConcreteSetTechnology(value))
+internal class AdjustableTechnologyIntStruct(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<TechnologyIntStruct, TechnologyIntStruct.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: TechnologyIntStruct.()->Unit) {
+        super.eq(ConcreteTechnologyIntStruct(value))
     }
 }
 
