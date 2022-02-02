@@ -1,11 +1,11 @@
 package jp.unaguna.hoi4modding.struct
 
 import jp.unaguna.hoi4modding.struct.common.Hoi4Struct
-import jp.unaguna.hoi4modding.struct.common.Hoi4String
+import jp.unaguna.hoi4modding.struct.common.Hoi4Word
 import jp.unaguna.hoi4modding.struct.common.MutableStruct
 
-class SetPoliticsBuilder(rulingParty: Hoi4String) : MutableStruct() {
-    constructor(rulingParty: String): this(Hoi4String(rulingParty))
+class SetPoliticsBuilder(rulingParty: Hoi4Word) : MutableStruct() {
+    constructor(rulingParty: String): this(Hoi4Word(rulingParty))
     constructor(rulingParty: IIdeology): this(rulingParty.label)
 
     private val rulingParty = fieldFactory.adjustableIdeology("ruling_party")

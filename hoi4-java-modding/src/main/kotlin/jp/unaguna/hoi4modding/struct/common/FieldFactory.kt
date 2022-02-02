@@ -1,6 +1,6 @@
 package jp.unaguna.hoi4modding.struct.common
 
-import jp.unaguna.hoi4modding.hoi4file.Hoi4FileString
+import jp.unaguna.hoi4modding.hoi4file.Hoi4FileWord
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
@@ -64,19 +64,19 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableString(parameterName, struct)
     }
 
-    fun adjustableIdeology(parameterName: String): AdjustableField<Hoi4String, String, IIdeology> {
-        return AdjustableString(parameterName, struct)
+    fun adjustableIdeology(parameterName: String): AdjustableField<Hoi4Word, String, IIdeology> {
+        return AdjustableWord(parameterName, struct)
     }
 
     fun adjustableOob(parameterName: String): AdjustableField<Hoi4String, String, IOob> {
         return AdjustableString(parameterName, struct)
     }
 
-    fun adjustableCharacter(parameterName: String): AdjustableField<Hoi4String, String, ICharacter> {
-        return AdjustableString(parameterName, struct)
+    fun adjustableCharacter(parameterName: String): AdjustableField<Hoi4Word, String, ICharacter> {
+        return AdjustableWord(parameterName, struct)
     }
 
-    fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileString, Hoi4String>, List<IIdea>, Nothing> {
+    fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileWord, Hoi4Word>, List<IIdea>, Nothing> {
         return AdjustableList(parameterName, struct)
     }
 

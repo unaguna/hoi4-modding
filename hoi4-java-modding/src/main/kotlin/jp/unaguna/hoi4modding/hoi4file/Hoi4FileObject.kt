@@ -19,6 +19,11 @@ data class Hoi4FileString(private val string: String): AbstractHoi4FileObject(),
     override fun serialize(baseIndent: Int): String = "\"${this.string}\""
 }
 
+data class Hoi4FileWord(private val string: String): AbstractHoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
+    override fun toString(): String = this.string
+    override fun serialize(baseIndent: Int): String = this.string
+}
+
 data class Hoi4FileNumber(private val number: Number): AbstractHoi4FileObject(), Hoi4FileListElement, Hoi4FileRelationRight {
     override fun toString(): String = this.number.toString()
     override fun serialize(baseIndent: Int): String = this.toString()

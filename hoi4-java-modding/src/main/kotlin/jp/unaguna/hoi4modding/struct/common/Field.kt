@@ -116,6 +116,12 @@ internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct:
     }
 }
 
+internal class AdjustableWord<L: Label<Hoi4Word>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Word, String, L>(fieldName, struct) {
+    override infix fun eq(value: String) {
+        super.eq(Hoi4Word(value))
+    }
+}
+
 internal class AdjustableDate(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Date, Nothing, Nothing>(fieldName, struct) {
     override infix fun eq(value: Nothing) {
         throw UnsupportedOperationException()
