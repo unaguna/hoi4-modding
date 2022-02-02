@@ -2,7 +2,7 @@ package jp.unaguna.hoi4modding.struct.vanilla
 
 import jp.unaguna.hoi4modding.struct.ITechnology
 
-enum class Techs : ITechnology {
+enum class VTechs : ITechnology {
     InfantryWeapons {
         override val technologyName = "infantry_weapons"
     },

@@ -2,7 +2,7 @@ package jp.unaguna.hoi4modding.struct.vanilla
 
 import jp.unaguna.hoi4modding.struct.IIdeology
 
-enum class Ideologies : IIdeology {
+enum class VIdeologies : IIdeology {
     Democratic {
         override val ideologyName = "democratic"
     },
