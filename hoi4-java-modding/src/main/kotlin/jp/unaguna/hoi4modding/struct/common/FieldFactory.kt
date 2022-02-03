@@ -12,10 +12,16 @@ import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
 import jp.unaguna.hoi4modding.struct.IOob
 import jp.unaguna.hoi4modding.struct.IState
+import jp.unaguna.hoi4modding.struct.ITooltip
+import jp.unaguna.hoi4modding.struct.IVariable
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
 class FieldFactory(private val struct: MutableStruct) {
+    fun <V: Value<*>> adjustableTightField(parameterName: String): AdjustableField<V, Nothing, Nothing> {
+        return AdjustableTightField(parameterName, struct)
+    }
+
     fun adjustableStruct(parameterName: String): AdjustableField<Hoi4Struct, Nothing, Nothing> {
         return AdjustableImmutableStruct(parameterName, struct)
     }
@@ -76,6 +82,10 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableWord(parameterName, struct)
     }
 
+    fun adjustableTooltip(parameterName: String): AdjustableField<Hoi4Word, String, ITooltip> {
+        return AdjustableWord(parameterName, struct)
+    }
+
     fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileWord, Hoi4Word>, List<IIdea>, Nothing> {
         return AdjustableList(parameterName, struct)
     }
@@ -86,5 +96,9 @@ class FieldFactory(private val struct: MutableStruct) {
 
     fun adjustableIdeologyIntStruct(parameterName: String): AdjustableField<IdeologyIntStruct, IdeologyIntStruct.()->Unit, Nothing> {
         return AdjustableIdeologyIntStruct(parameterName, struct)
+    }
+
+    fun adjustableVariable(parameterName: String): AdjustableField<Hoi4Word, Nothing, IVariable<*,*,*,*>> {
+        return AdjustableVariable(parameterName, struct)
     }
 }

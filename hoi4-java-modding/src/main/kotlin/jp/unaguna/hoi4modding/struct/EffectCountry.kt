@@ -1,6 +1,8 @@
 package jp.unaguna.hoi4modding.struct
 
+import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
+import jp.unaguna.hoi4modding.struct.common.Value
 
 sealed class AbstractEffectCountry: Effect<Scope.Companion.COUNTRY>() {
     val limit = fieldFactory.adjustableConditionCountry("limit")
@@ -13,6 +15,33 @@ sealed class AbstractEffectCountry: Effect<Scope.Companion.COUNTRY>() {
 
     fun setPolitics(rulingParty: IIdeology, action: SetPoliticsBuilder.()->Unit) {
         setPolitics eq SetPoliticsBuilder(rulingParty).apply(action).build()
+    }
+
+    @Deprecated("It is not recommended to use state variables in the country scope.")
+    override fun <V : Value<*>, U, L : Label<V>> setVariable(
+        variable: StateVariable<V, U, L>,
+        value: V,
+        action: SetVariableBuilder<V, U, L>.() -> Unit
+    ) {
+        super.setVariable(variable, value, action)
+    }
+
+    @Deprecated("It is not recommended to use state variables in the country scope.")
+    override fun <V : Value<*>, U, L : Label<V>> setVariable(
+        variable: StateVariable<V, U, L>,
+        value: U,
+        action: SetVariableBuilder<V, U, L>.() -> Unit
+    ) {
+        super.setVariable(variable, value, action)
+    }
+
+    @Deprecated("It is not recommended to use state variables in the country scope.")
+    override fun <V : Value<*>, U, L : Label<V>> setVariable(
+        variable: StateVariable<V, U, L>,
+        value: L,
+        action: SetVariableBuilder<V, U, L>.() -> Unit
+    ) {
+        super.setVariable(variable, value, action)
     }
 }
 

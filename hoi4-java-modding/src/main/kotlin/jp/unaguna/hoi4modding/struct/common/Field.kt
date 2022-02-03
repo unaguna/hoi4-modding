@@ -13,6 +13,7 @@ import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
+import jp.unaguna.hoi4modding.struct.IVariable
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
@@ -81,6 +82,12 @@ internal abstract class AbstractComparableField<T : Value<*>, U : Any, L: Label<
 
     override infix fun gt(value: T) {
         registerParameter(Operator.GT, value)
+    }
+}
+
+internal class AdjustableTightField<V: Value<*>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<V, Nothing, Nothing>(fieldName, struct) {
+    override fun eq(value: Nothing) {
+        throw UnsupportedOperationException()
     }
 }
 
@@ -179,5 +186,11 @@ internal class AdjustableImmutableStruct(fieldName: String, struct: MutableStruc
 internal class AdjustableList<H: Hoi4FileRelationRight, E: Value<H>, L: Label<E>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<ValueList<H, E>, List<L>, Nothing>(fieldName, struct) {
     override infix fun eq(value: List<L>) {
         super.eq(ValueList(value.map { it.label }))
+    }
+}
+
+internal class AdjustableVariable(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Word, Nothing, IVariable<*,*,*,*>>(fieldName, struct) {
+    override infix fun eq(value: Nothing) {
+        throw UnsupportedOperationException()
     }
 }
