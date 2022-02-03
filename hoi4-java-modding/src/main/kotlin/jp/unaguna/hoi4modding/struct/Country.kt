@@ -14,15 +14,17 @@ abstract class Country : ToFile, ICountry {
     override fun fileList(): List<Pair<String, Hoi4FileObject>> {
         val fileList: MutableList<Pair<String, Hoi4FileObject>> = mutableListOf()
 
-        val country = "common/countries/$tag.txt" to relationList {
+        val countryFileName = "$tag.txt"
+
+        val country = "common/countries/$countryFileName" to relationList {
             // TODO: Make values not constant
             "graphical_culture" eq "commonwealth_gfx"
             "graphical_culture_2d" eq "commonwealth_2d"
             "color" eq color
         }
         fileList.add(country)
-        fileList.add("common/country_tags/$tag.txt" to relationList {
-            tag eq country.first
+        fileList.add("common/country_tags/$countryFileName" to relationList {
+            tag eq "countries/$countryFileName"
         })
         history?.let { history ->
             fileList.addAll(history.fileList())
