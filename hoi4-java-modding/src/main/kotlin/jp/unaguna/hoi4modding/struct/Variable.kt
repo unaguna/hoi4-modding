@@ -18,12 +18,21 @@ interface IVariable<S: Scope, V: Value<*>, U, L: Label<V>> : Label<Hoi4Word> {
 interface CountryVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.Country, V, U, L>
 interface StateVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.State, V, U, L>
 
-abstract class VariableInt<S: Scope, L: Label<Hoi4Number>> : IVariable<S, Hoi4Number, Int, L> {
+abstract class CountryIntVariable<L: Label<Hoi4Number>> : IVariable<Scope.Country, Hoi4Number, Int, L>, CountryVariable<Hoi4Number, Int, L> {
     override fun convValue(value: Int) = Hoi4Number(value)
 }
-abstract class VariableString<S: Scope, L: Label<Hoi4String>> : IVariable<S, Hoi4String, String, L> {
+abstract class StateIntVariable<L: Label<Hoi4Number>> : IVariable<Scope.State, Hoi4Number, Int, L>, StateVariable<Hoi4Number, Int, L> {
+    override fun convValue(value: Int) = Hoi4Number(value)
+}
+abstract class CountryStringVariable<L: Label<Hoi4String>> : IVariable<Scope.Country, Hoi4String, String, L>, CountryVariable<Hoi4String, String, L> {
     override fun convValue(value: String) = Hoi4String(value)
 }
-abstract class VariableWord<S: Scope, L: Label<Hoi4Word>> : IVariable<S, Hoi4Word, String, L> {
+abstract class StateStringVariable<L: Label<Hoi4String>> : IVariable<Scope.State, Hoi4String, String, L>, StateVariable<Hoi4String, String, L> {
+    override fun convValue(value: String) = Hoi4String(value)
+}
+abstract class CountryWordVariable<L: Label<Hoi4Word>> : IVariable<Scope.Country, Hoi4Word, String, L>, CountryVariable<Hoi4Word, String, L> {
+    override fun convValue(value: String) = Hoi4Word(value)
+}
+abstract class StateWordVariable<L: Label<Hoi4Word>> : IVariable<Scope.State, Hoi4Word, String, L>, StateVariable<Hoi4Word, String, L> {
     override fun convValue(value: String) = Hoi4Word(value)
 }
