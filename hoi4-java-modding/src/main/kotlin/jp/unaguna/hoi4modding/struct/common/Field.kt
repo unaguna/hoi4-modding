@@ -13,7 +13,7 @@ import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
-import jp.unaguna.hoi4modding.struct.IVariable
+import jp.unaguna.hoi4modding.struct.variable.IVariable
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
@@ -189,7 +189,7 @@ internal class AdjustableList<H: Hoi4FileRelationRight, E: Value<H>, L: Label<E>
     }
 }
 
-internal class AdjustableVariable(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Word, Nothing, IVariable<*,*,*,*>>(fieldName, struct) {
+internal class AdjustableVariable(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Word, Nothing, IVariable<*, *, *, *>>(fieldName, struct) {
     override infix fun eq(value: Nothing) {
         throw UnsupportedOperationException()
     }

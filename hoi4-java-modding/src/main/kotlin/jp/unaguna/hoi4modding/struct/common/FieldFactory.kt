@@ -13,7 +13,7 @@ import jp.unaguna.hoi4modding.struct.IIdeology
 import jp.unaguna.hoi4modding.struct.IOob
 import jp.unaguna.hoi4modding.struct.IState
 import jp.unaguna.hoi4modding.struct.ITooltip
-import jp.unaguna.hoi4modding.struct.IVariable
+import jp.unaguna.hoi4modding.struct.variable.IVariable
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
 
@@ -98,7 +98,7 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableIdeologyIntStruct(parameterName, struct)
     }
 
-    fun adjustableVariable(parameterName: String): AdjustableField<Hoi4Word, Nothing, IVariable<*,*,*,*>> {
+    fun adjustableVariable(parameterName: String): AdjustableField<Hoi4Word, Nothing, IVariable<*, *, *, *>> {
         return AdjustableVariable(parameterName, struct)
     }
 }

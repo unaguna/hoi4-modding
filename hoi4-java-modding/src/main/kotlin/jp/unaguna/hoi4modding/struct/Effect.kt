@@ -5,6 +5,9 @@ import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.MutableStruct
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
+import jp.unaguna.hoi4modding.struct.variable.ICountryVariable
+import jp.unaguna.hoi4modding.struct.variable.IVariable
+import jp.unaguna.hoi4modding.struct.variable.IStateVariable
 
 abstract class Effect<S: Scope>: MutableStruct() {
     val setGlobalFlag = fieldFactory.adjustableFlag("set_global_flag")
@@ -36,7 +39,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: V,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {
@@ -44,7 +47,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: U,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {
@@ -52,7 +55,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: L,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {
@@ -60,7 +63,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: StateVariable<V, U, L>,
+        variable: IStateVariable<V, U, L>,
         value: V,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {
@@ -68,7 +71,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: StateVariable<V, U, L>,
+        variable: IStateVariable<V, U, L>,
         value: U,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {
@@ -76,7 +79,7 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
 
     open fun <V: Value<*>, U, L: Label<V>> setVariable(
-        variable: StateVariable<V, U, L>,
+        variable: IStateVariable<V, U, L>,
         value: L,
         action: SetVariableBuilder<V, U, L>.()->Unit = {}
     ) {

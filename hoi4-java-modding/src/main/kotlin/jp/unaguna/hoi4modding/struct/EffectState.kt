@@ -3,6 +3,7 @@ package jp.unaguna.hoi4modding.struct
 import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
+import jp.unaguna.hoi4modding.struct.variable.ICountryVariable
 
 abstract class EffectState: Effect<Scope.State>() {
     val iff = fieldFactory.adjustableEffectState("if")
@@ -10,7 +11,7 @@ abstract class EffectState: Effect<Scope.State>() {
 
     @Deprecated("It is not recommended to use country variables in the state scope.")
     override fun <V : Value<*>, U, L : Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: V,
         action: SetVariableBuilder<V, U, L>.() -> Unit
     ) {
@@ -19,7 +20,7 @@ abstract class EffectState: Effect<Scope.State>() {
 
     @Deprecated("It is not recommended to use country variables in the state scope.")
     override fun <V : Value<*>, U, L : Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: U,
         action: SetVariableBuilder<V, U, L>.() -> Unit
     ) {
@@ -28,7 +29,7 @@ abstract class EffectState: Effect<Scope.State>() {
 
     @Deprecated("It is not recommended to use country variables in the state scope.")
     override fun <V : Value<*>, U, L : Label<V>> setVariable(
-        variable: CountryVariable<V, U, L>,
+        variable: ICountryVariable<V, U, L>,
         value: L,
         action: SetVariableBuilder<V, U, L>.() -> Unit
     ) {

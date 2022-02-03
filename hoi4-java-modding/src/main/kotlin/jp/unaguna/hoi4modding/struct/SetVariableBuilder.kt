@@ -4,6 +4,7 @@ import jp.unaguna.hoi4modding.struct.common.Hoi4Struct
 import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.MutableStruct
 import jp.unaguna.hoi4modding.struct.common.Value
+import jp.unaguna.hoi4modding.struct.variable.IVariable
 
 class SetVariableBuilder<V: Value<*>, U, L: Label<V>>(variable: IVariable<*, V, U, L>, value: V) : MutableStruct() {
     constructor(variable: IVariable<*, V, U, L>, value: U): this(variable, variable.convValue(value))
