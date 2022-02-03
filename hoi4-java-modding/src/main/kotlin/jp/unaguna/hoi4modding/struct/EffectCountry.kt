@@ -4,7 +4,7 @@ import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
 
-sealed class AbstractEffectCountry: Effect<Scope.Companion.COUNTRY>() {
+sealed class AbstractEffectCountry: Effect<Scope.Country>() {
     val limit = fieldFactory.adjustableConditionCountry("limit")
     val setPopularities = fieldFactory.adjustableIdeologyIntStruct("set_popularities")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")

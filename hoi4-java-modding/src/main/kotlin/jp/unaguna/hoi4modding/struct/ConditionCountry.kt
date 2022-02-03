@@ -2,7 +2,7 @@ package jp.unaguna.hoi4modding.struct
 
 import jp.unaguna.hoi4modding.struct.common.Scope
 
-abstract class ConditionCountry: Condition<Scope.Companion.COUNTRY>() {
+abstract class ConditionCountry: Condition<Scope.Country>() {
     val originalResearchSlots = fieldFactory.comparableInt("original_research_slots")
 }
 

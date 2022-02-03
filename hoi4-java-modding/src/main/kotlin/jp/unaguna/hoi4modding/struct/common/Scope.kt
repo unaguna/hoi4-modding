@@ -1,8 +1,6 @@
 package jp.unaguna.hoi4modding.struct.common
 
 sealed class Scope {
-    companion object {
-        object COUNTRY : Scope()
-        object STATE : Scope()
-    }
+    object Country : Scope()
+    object State : Scope()
 }

@@ -4,7 +4,7 @@ import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
 
-abstract class EffectState: Effect<Scope.Companion.STATE>() {
+abstract class EffectState: Effect<Scope.State>() {
     val iff = fieldFactory.adjustableEffectState("if")
     val limit = fieldFactory.adjustableConditionState("limit")
 

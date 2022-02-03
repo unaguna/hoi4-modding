@@ -15,8 +15,8 @@ interface IVariable<S: Scope, V: Value<*>, U, L: Label<V>> : Label<Hoi4Word> {
     fun convValue(value: U): V
 }
 
-interface CountryVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.Companion.COUNTRY, V, U, L>
-interface StateVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.Companion.STATE, V, U, L>
+interface CountryVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.Country, V, U, L>
+interface StateVariable<V: Value<*>, U, L: Label<V>> : IVariable<Scope.State, V, U, L>
 
 abstract class VariableInt<S: Scope, L: Label<Hoi4Number>> : IVariable<S, Hoi4Number, Int, L> {
     override fun convValue(value: Int) = Hoi4Number(value)
