@@ -1,6 +1,6 @@
 allprojects {
-    group = "jp.unaguna"
-    version = "0.1.0-SNAPSHOT"
+    group = "jp.unaguna.hoi4-modding"
+    version = "0.0.1"
 
     repositories {
         mavenCentral()
