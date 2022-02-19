@@ -4,7 +4,7 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
-import jp.unaguna.hoi4modding.hoi4file.Hoi4Object;
+import jp.unaguna.hoi4modding.hoi4file.Hoi4FileObject;
 import jp.unaguna.hoi4modding.struct.ModFile;
 import jp.unaguna.hoi4modding.struct.ToFile;
 import kotlin.Pair;
@@ -61,9 +61,9 @@ public record ModCompiler(Collection<URL> targetClasspath, Path destinationDirec
                     System.out.println("The instance of " + classInfo.getName() + " has been constructed: " + instance);
 
                     // modファイルへ書き出す
-                    for (Pair<String, Hoi4Object> modFile : instance.fileList()) {
+                    for (Pair<String, Hoi4FileObject> modFile : instance.fileList()) {
                         Path target = destinationDirectory.resolve(modFile.component1());
-                        Hoi4Object content = modFile.component2();
+                        Hoi4FileObject content = modFile.component2();
 
                         Files.createDirectories(target.getParent());
                         Files.writeString(target, content.serialize(), StandardOpenOption.CREATE);

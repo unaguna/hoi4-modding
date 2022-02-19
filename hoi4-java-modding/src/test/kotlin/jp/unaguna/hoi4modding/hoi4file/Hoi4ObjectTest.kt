@@ -17,7 +17,7 @@ class Hoi4ObjectTest : FunSpec ({
             )
         ) { bool: Boolean, expectedStr: String ->
             test("Hoi4Bool($bool).serialize()") {
-                val hoi4Bool = Hoi4Bool(bool)
+                val hoi4Bool = Hoi4FileBool(bool)
                 hoi4Bool.serialize() shouldBe expectedStr
             }
         }
@@ -33,7 +33,7 @@ class Hoi4ObjectTest : FunSpec ({
             )
         ) { str: String, expectedStr: String ->
             test("Hoi4String(\"$str\").serialize()") {
-                val hoi4String = Hoi4String(str)
+                val hoi4String = Hoi4FileString(str)
                 hoi4String.serialize() shouldBe expectedStr
             }
         }
@@ -49,7 +49,7 @@ class Hoi4ObjectTest : FunSpec ({
             )
         ) { num: Double, expectedStr: String ->
             test("Hoi4Number($num).serialize()") {
-                val hoi4Number = Hoi4Number(num)
+                val hoi4Number = Hoi4FileNumber(num)
                 hoi4Number.serialize() shouldBe expectedStr
             }
         }
@@ -65,7 +65,7 @@ class Hoi4ObjectTest : FunSpec ({
             )
         ) { strList: List<String>, expectedStr: String ->
             test("Hoi4List<Hoi4String>($strList).serialize()") {
-                val hoi4List = Hoi4List(strList.map { Hoi4String(it) })
+                val hoi4List = Hoi4FileList(strList.map { Hoi4FileString(it) })
                 hoi4List.serialize() shouldBe expectedStr
             }
         }
@@ -80,7 +80,7 @@ class Hoi4ObjectTest : FunSpec ({
             )
         ) { strList: List<String>, indent: Int, expectedStr: String ->
             test("Hoi4List<Hoi4String>($strList).serialize($indent)") {
-                val hoi4List = Hoi4List(strList.map { Hoi4String(it) })
+                val hoi4List = Hoi4FileList(strList.map { Hoi4FileString(it) })
                 hoi4List.serialize(indent) shouldBe expectedStr
             }
         }
@@ -89,27 +89,27 @@ class Hoi4ObjectTest : FunSpec ({
     context("Hoi4RelationEq.serialize"){
         // Hoi4RelationEq.serialize()
         test("Hoi4RelationEq(String, Hoi4Bool).serialize()") {
-            val hoi4RelationEq = Hoi4RelationEq("flag", Hoi4Bool(true))
+            val hoi4RelationEq = Hoi4FileRelationEq("flag", Hoi4FileBool(true))
             hoi4RelationEq.serialize() shouldBe "flag = yes"
         }
         test("Hoi4RelationEq(String, Hoi4Number).serialize()") {
-            val hoi4RelationEq = Hoi4RelationEq("amount", Hoi4Number(1.0))
+            val hoi4RelationEq = Hoi4FileRelationEq("amount", Hoi4FileNumber(1.0))
             hoi4RelationEq.serialize() shouldBe "amount = 1.0"
         }
         test("Hoi4RelationEq(String, Hoi4String).serialize()") {
-            val hoi4RelationEq = Hoi4RelationEq("building", Hoi4String("radar"))
+            val hoi4RelationEq = Hoi4FileRelationEq("building", Hoi4FileString("radar"))
             hoi4RelationEq.serialize() shouldBe "building = \"radar\""
         }
         test("Hoi4RelationEq(String, Hoi4List<Hoi4String>).serialize()") {
-            val hoi4RelationEq = Hoi4RelationEq("building", Hoi4List(listOf(Hoi4String("radar"), Hoi4String("airport"))))
+            val hoi4RelationEq = Hoi4FileRelationEq("building", Hoi4FileList(listOf(Hoi4FileString("radar"), Hoi4FileString("airport"))))
             hoi4RelationEq.serialize() shouldBe "building = {\n\t\"radar\"\n\t\"airport\"\n}"
         }
         test("Hoi4RelationEq(String, Hoi4List<Hoi4RelationEq>).serialize()") {
-            val hoi4RelationEq = Hoi4RelationEq("add", Hoi4List(listOf(Hoi4RelationEq("building", Hoi4String("radar")), Hoi4RelationLt("amount", Hoi4Number(1.0)))))
+            val hoi4RelationEq = Hoi4FileRelationEq("add", Hoi4FileList(listOf(Hoi4FileRelationEq("building", Hoi4FileString("radar")), Hoi4FileRelationLt("amount", Hoi4FileNumber(1.0)))))
             hoi4RelationEq.serialize() shouldBe "add = {\n\tbuilding = \"radar\"\n\tamount < 1.0\n}"
         }
         test("Hoi4RelationEq(String, Hoi4List<Hoi4RelationEq>).serialize(1)") {
-            val hoi4RelationEq = Hoi4RelationEq("add", Hoi4List(listOf(Hoi4RelationEq("building", Hoi4List(listOf(Hoi4RelationEq("building", Hoi4String("radar"))))), Hoi4RelationLt("amount", Hoi4Number(1.0)))))
+            val hoi4RelationEq = Hoi4FileRelationEq("add", Hoi4FileList(listOf(Hoi4FileRelationEq("building", Hoi4FileList(listOf(Hoi4FileRelationEq("building", Hoi4FileString("radar"))))), Hoi4FileRelationLt("amount", Hoi4FileNumber(1.0)))))
             hoi4RelationEq.serialize(1) shouldBe "add = {\n" +
                     "\t\tbuilding = {\n" +
                     "\t\t\tbuilding = \"radar\"\n" +
@@ -122,15 +122,15 @@ class Hoi4ObjectTest : FunSpec ({
     context("Hoi4RelationLt.serialize"){
         // Hoi4RelationEq.serialize()
         test("Hoi4RelationLt(String, Hoi4Bool).serialize()") {
-            val hoi4RelationLt = Hoi4RelationLt("flag", Hoi4Bool(true))
+            val hoi4RelationLt = Hoi4FileRelationLt("flag", Hoi4FileBool(true))
             hoi4RelationLt.serialize() shouldBe "flag < yes"
         }
         test("Hoi4RelationLt(String, Hoi4Number).serialize()") {
-            val hoi4RelationLt = Hoi4RelationLt("amount", Hoi4Number(1.0))
+            val hoi4RelationLt = Hoi4FileRelationLt("amount", Hoi4FileNumber(1.0))
             hoi4RelationLt.serialize() shouldBe "amount < 1.0"
         }
         test("Hoi4RelationLt(String, Hoi4String).serialize()") {
-            val hoi4RelationLt = Hoi4RelationLt("building", Hoi4String("radar"))
+            val hoi4RelationLt = Hoi4FileRelationLt("building", Hoi4FileString("radar"))
             hoi4RelationLt.serialize() shouldBe "building < \"radar\""
         }
     }
@@ -138,15 +138,15 @@ class Hoi4ObjectTest : FunSpec ({
     context("Hoi4RelationGt.serialize"){
         // Hoi4RelationEq.serialize()
         test("Hoi4RelationGt(String, Hoi4Bool).serialize()") {
-            val hoi4RelationGt = Hoi4RelationGt("flag", Hoi4Bool(true))
+            val hoi4RelationGt = Hoi4FileRelationGt("flag", Hoi4FileBool(true))
             hoi4RelationGt.serialize() shouldBe "flag > yes"
         }
         test("Hoi4RelationGt(String, Hoi4Number).serialize()") {
-            val hoi4RelationGt = Hoi4RelationGt("amount", Hoi4Number(1.0))
+            val hoi4RelationGt = Hoi4FileRelationGt("amount", Hoi4FileNumber(1.0))
             hoi4RelationGt.serialize() shouldBe "amount > 1.0"
         }
         test("Hoi4RelationGt(String, Hoi4String).serialize()") {
-            val hoi4RelationGt = Hoi4RelationGt("building", Hoi4String("radar"))
+            val hoi4RelationGt = Hoi4FileRelationGt("building", Hoi4FileString("radar"))
             hoi4RelationGt.serialize() shouldBe "building > \"radar\""
         }
     }
