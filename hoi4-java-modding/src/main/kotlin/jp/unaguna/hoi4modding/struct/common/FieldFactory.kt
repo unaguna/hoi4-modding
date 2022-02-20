@@ -3,6 +3,7 @@ package jp.unaguna.hoi4modding.struct.common
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileWord
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
+import jp.unaguna.hoi4modding.struct.CountryEvent
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
@@ -10,6 +11,7 @@ import jp.unaguna.hoi4modding.struct.ICharacter
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
+import jp.unaguna.hoi4modding.struct.INamespace
 import jp.unaguna.hoi4modding.struct.IOob
 import jp.unaguna.hoi4modding.struct.IState
 import jp.unaguna.hoi4modding.struct.ITooltip
@@ -58,6 +60,10 @@ class FieldFactory(private val struct: MutableStruct) {
         return ComparableInteger(parameterName, struct)
     }
 
+    fun adjustableWord(parameterName: String): AdjustableField<Hoi4Word, String, Nothing> {
+        return AdjustableWord(parameterName, struct)
+    }
+
     fun adjustableDate(parameterName: String): AdjustableField<Hoi4Date, Nothing, Nothing> {
         return AdjustableDate(parameterName, struct)
     }
@@ -86,8 +92,16 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableWord(parameterName, struct)
     }
 
+    fun adjustableNamespace(parameterName: String): AdjustableField<Hoi4Word, String, INamespace> {
+        return AdjustableWord(parameterName, struct)
+    }
+
     fun adjustableIdeaList(parameterName: String): AdjustableField<ValueList<Hoi4FileWord, Hoi4Word>, List<IIdea>, Nothing> {
         return AdjustableList(parameterName, struct)
+    }
+
+    fun adjustableCountryEvent(parameterName: String): AdjustableField<CountryEvent, Nothing, Nothing> {
+        return AdjustableTightField(parameterName, struct)
     }
 
     fun adjustableTechnologyIntStruct(parameterName: String): AdjustableField<TechnologyIntStruct, TechnologyIntStruct.()->Unit, Nothing> {
