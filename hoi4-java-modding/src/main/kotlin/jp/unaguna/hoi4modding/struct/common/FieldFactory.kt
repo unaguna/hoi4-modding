@@ -4,6 +4,7 @@ import jp.unaguna.hoi4modding.hoi4file.Hoi4FileWord
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.CountryEvent
+import jp.unaguna.hoi4modding.struct.CountryEventOption
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
@@ -34,6 +35,10 @@ class FieldFactory(private val struct: MutableStruct) {
 
     fun adjustableEffectCountryHistory(parameterName: String): AdjustableField<EffectCountryHistory, EffectCountryHistory.()->Unit, Nothing> {
         return AdjustableEffectCountryHistory(parameterName, struct)
+    }
+
+    fun adjustableCountryEventOption(parameterName: String): AdjustableField<CountryEventOption, Nothing, Nothing> {
+        return AdjustableCountryEventOption(parameterName, struct)
     }
 
     fun adjustableConditionCountry(parameterName: String): AdjustableField<ConditionCountry, ConditionCountry.()->Unit, Nothing> {

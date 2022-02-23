@@ -10,6 +10,7 @@ import jp.unaguna.hoi4modding.struct.ConcreteIdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConcreteTechnologyIntStruct
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
+import jp.unaguna.hoi4modding.struct.CountryEventOption
 import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
@@ -144,6 +145,12 @@ internal class AdjustableEffectCountry(fieldName: String, struct: MutableStruct)
 internal class AdjustableEffectCountryHistory(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<EffectCountryHistory, EffectCountryHistory.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: EffectCountryHistory.()->Unit) {
         super.eq(ConcreteEffectCountryHistory(value))
+    }
+}
+
+internal class AdjustableCountryEventOption(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<CountryEventOption, Nothing, Nothing>(fieldName, struct) {
+    override infix fun eq(value: Nothing) {
+        throw UnsupportedOperationException()
     }
 }
 

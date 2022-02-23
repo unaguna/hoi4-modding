@@ -75,3 +75,18 @@ internal class ConcreteEffectCountryHistory(initialize: EffectCountryHistory.() 
         initialize(this)
     }
 }
+
+abstract class CountryEventOption(val optionName: String): AbstractEffectCountry() {
+    init {
+        fieldFactory.adjustableWord("name") eq optionName
+    }
+}
+
+internal class ConcreteCountryEventOption(
+    optionName: String,
+    initialize: CountryEventOption.() -> Unit,
+): CountryEventOption(optionName) {
+    init {
+        initialize(this)
+    }
+}
