@@ -7,6 +7,7 @@ import jp.unaguna.hoi4modding.struct.common.Value
 import jp.unaguna.hoi4modding.struct.variable.IStateVariable
 
 sealed class AbstractEffectCountry: Effect<Scope.Country>() {
+    override val effectTooltip = fieldFactory.adjustableEffectCountry("effect_tooltip")
     val limit = fieldFactory.adjustableConditionCountry("limit")
     val setPopularities = fieldFactory.adjustableIdeologyIntStruct("set_popularities")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")

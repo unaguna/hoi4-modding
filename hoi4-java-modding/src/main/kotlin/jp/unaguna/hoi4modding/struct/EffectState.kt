@@ -6,6 +6,7 @@ import jp.unaguna.hoi4modding.struct.common.Value
 import jp.unaguna.hoi4modding.struct.variable.ICountryVariable
 
 abstract class EffectState: Effect<Scope.State>() {
+    override val effectTooltip = fieldFactory.adjustableEffectState("effect_tooltip")
     val iff = fieldFactory.adjustableEffectState("if")
     val limit = fieldFactory.adjustableConditionState("limit")
 
