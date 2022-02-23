@@ -9,6 +9,7 @@ import jp.unaguna.hoi4modding.struct.EffectCountry
 import jp.unaguna.hoi4modding.struct.EffectCountryHistory
 import jp.unaguna.hoi4modding.struct.EffectState
 import jp.unaguna.hoi4modding.struct.ICharacter
+import jp.unaguna.hoi4modding.struct.ICountry
 import jp.unaguna.hoi4modding.struct.ICountryEvent
 import jp.unaguna.hoi4modding.struct.IFlag
 import jp.unaguna.hoi4modding.struct.IIdea
@@ -75,6 +76,10 @@ class FieldFactory(private val struct: MutableStruct) {
     }
 
     fun adjustableCountryEvent(parameterName: String): AdjustableField<Hoi4Word, String, ICountryEvent> {
+        return AdjustableWord(parameterName, struct)
+    }
+
+    fun adjustableCountry(parameterName: String): AdjustableField<Hoi4Word, String, ICountry> {
         return AdjustableWord(parameterName, struct)
     }
 
