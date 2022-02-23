@@ -1,5 +1,6 @@
 package jp.unaguna.hoi4modding.struct
 
+import jp.unaguna.hoi4modding.struct.common.Hoi4Word
 import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
@@ -13,9 +14,22 @@ sealed class AbstractEffectCountry: Effect<Scope.Country>() {
     val setTechnology = fieldFactory.adjustableTechnologyIntStruct("set_technology")
 
     private val setPolitics = fieldFactory.adjustableStruct("set_politics")
+    private val countryEvent = fieldFactory.adjustableStruct("country_event")
 
     fun setPolitics(rulingParty: IIdeology, action: SetPoliticsBuilder.()->Unit) {
         setPolitics eq SetPoliticsBuilder(rulingParty).apply(action).build()
+    }
+
+    fun countryEvent(event: ICountryEvent, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
+    }
+
+    fun countryEvent(event: Hoi4Word, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
+    }
+
+    fun countryEvent(event: String, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
     }
 
     @Deprecated("It is not recommended to use state variables in the country scope.")

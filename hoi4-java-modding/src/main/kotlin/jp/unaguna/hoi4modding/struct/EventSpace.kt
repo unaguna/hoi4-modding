@@ -14,7 +14,7 @@ abstract class EventSpace(override val namespace: String): ToFile, INamespace {
     /** A class just for EventSpace.fileList() */
     private inner class EventSpaceStruct: MutableStruct() {
         private val addNamespace = fieldFactory.adjustableNamespace("add_namespace")
-        private val countryEvent = fieldFactory.adjustableCountryEvent("country_event")
+        private val countryEvent = fieldFactory.adjustableCountryEventDef("country_event")
 
         init {
             addNamespace eq this@EventSpace

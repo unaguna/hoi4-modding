@@ -4,7 +4,7 @@ import jp.unaguna.hoi4modding.struct.common.Hoi4Struct
 import jp.unaguna.hoi4modding.struct.common.MutableStruct
 import jp.unaguna.hoi4modding.struct.common.Parameter
 
-abstract class CountryEvent(final override val eventId: String): Hoi4Struct, IEvent {
+abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICountryEvent {
     private val struct by lazy { EventStruct() }
     protected abstract val optionList: List<Pair<String?, CountryEventOption.() -> Unit>>
     open val titleKey: String = "$eventId.t"
