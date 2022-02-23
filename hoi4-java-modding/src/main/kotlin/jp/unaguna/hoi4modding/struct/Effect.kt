@@ -92,4 +92,11 @@ abstract class Effect<S: Scope>: MutableStruct() {
     fun state(state: Int): AdjustableField<EffectState, EffectState.() -> Unit, Nothing> {
         return fieldFactory.adjustableEffectState(state.toString())
     }
+
+    fun country(country: ICountry): AdjustableField<EffectCountry, EffectCountry.() -> Unit, Nothing> {
+        return fieldFactory.adjustableEffectCountry(country.tag)
+    }
+    fun country(country: String): AdjustableField<EffectCountry, EffectCountry.() -> Unit, Nothing> {
+        return fieldFactory.adjustableEffectCountry(country)
+    }
 }
