@@ -83,8 +83,8 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableWord(parameterName, struct)
     }
 
-    fun adjustableState(parameterName: String): AdjustableField<Hoi4Number, Int, IState> {
-        return AdjustableInteger(parameterName, struct)
+    fun adjustableState(parameterName: String): AdjustableField<Hoi4Word, String, IState> {
+        return AdjustableWord(parameterName, struct)
     }
 
     fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
