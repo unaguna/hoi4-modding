@@ -12,6 +12,7 @@ import jp.unaguna.hoi4modding.struct.ICharacter
 import jp.unaguna.hoi4modding.struct.ICountry
 import jp.unaguna.hoi4modding.struct.ICountryEvent
 import jp.unaguna.hoi4modding.struct.IFlag
+import jp.unaguna.hoi4modding.struct.IGfx
 import jp.unaguna.hoi4modding.struct.IIdea
 import jp.unaguna.hoi4modding.struct.IIdeology
 import jp.unaguna.hoi4modding.struct.INamespace
@@ -104,6 +105,10 @@ class FieldFactory(private val struct: MutableStruct) {
     }
 
     fun adjustableTooltip(parameterName: String): AdjustableField<Hoi4Word, String, ITooltip> {
+        return AdjustableWord(parameterName, struct)
+    }
+
+    fun adjustableGfx(parameterName: String): AdjustableField<Hoi4Word, String, IGfx> {
         return AdjustableWord(parameterName, struct)
     }
 

@@ -13,6 +13,7 @@ sealed class AbstractEffectCountry: Effect<Scope.Country>() {
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
     val addIdeas = fieldFactory.adjustableIdeaList("add_ideas")
     val setTechnology = fieldFactory.adjustableTechnologyIntStruct("set_technology")
+    val transferState = fieldFactory.adjustableState("transfer_state")
 
     private val setPolitics = fieldFactory.adjustableStruct("set_politics")
     private val countryEvent = fieldFactory.adjustableStruct("country_event")

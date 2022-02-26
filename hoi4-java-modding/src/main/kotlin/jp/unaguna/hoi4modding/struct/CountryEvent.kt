@@ -9,6 +9,8 @@ abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICo
     protected abstract val optionList: List<Pair<String?, CountryEventOption.() -> Unit>>
     open val titleKey: String = "$eventId.t"
     open val descriptionKey: String = "$eventId.desc"
+    abstract val isTriggeredOnly: Boolean
+    open val picture: IGfx? = null
 
     override val parameterList: List<Parameter> by lazy { struct.parameterList }
 
@@ -30,12 +32,16 @@ abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICo
         private val id = fieldFactory.adjustableWord("id")
         private val title = fieldFactory.adjustableWord("title")
         private val desc = fieldFactory.adjustableWord("desc")
+        private val picture = fieldFactory.adjustableGfx("picture")
+        private val isTriggeredOnly = fieldFactory.adjustableBool("is_triggered_only")
         private val option = fieldFactory.adjustableCountryEventOption("option")
 
         init {
             id eq eventId
             title eq titleKey
             desc eq descriptionKey
+            this@CountryEvent.picture?.let { picture eq it }
+            isTriggeredOnly eq this@CountryEvent.isTriggeredOnly
 
             for((index, o) in optionList.withIndex()) {
                 val (optionName_, optionDefinition) = o
