@@ -2,7 +2,9 @@ package jp.unaguna.hoi4modding.struct.common
 
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationRight
 import jp.unaguna.hoi4modding.struct.AiChance
+import jp.unaguna.hoi4modding.struct.AiChanceModifier
 import jp.unaguna.hoi4modding.struct.ConcreteAiChance
+import jp.unaguna.hoi4modding.struct.ConcreteAiChanceModifier
 import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
@@ -197,6 +199,12 @@ internal class AdjustableConditionState(fieldName: String, struct: MutableStruct
 internal class AdjustableAiChance(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<AiChance, AiChance.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: AiChance.()->Unit) {
         super.eq(ConcreteAiChance(value))
+    }
+}
+
+internal class AdjustableAiChanceModifier(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<AiChanceModifier, AiChanceModifier.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: AiChanceModifier.()->Unit) {
+        super.eq(ConcreteAiChanceModifier(value))
     }
 }
 

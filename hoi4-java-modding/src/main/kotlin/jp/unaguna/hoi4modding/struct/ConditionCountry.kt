@@ -14,3 +14,16 @@ internal class ConcreteConditionCountry(initialize: ConditionCountry.() -> Unit)
         initialize(this)
     }
 }
+
+abstract class AiChanceModifier: ConditionCountry() {
+    val factor = fieldFactory.adjustableNumber("factor")
+    val add = fieldFactory.adjustableNumber("add")
+}
+
+internal class ConcreteAiChanceModifier(
+    initialize: AiChanceModifier.() -> Unit,
+): AiChanceModifier() {
+    init {
+        initialize(this)
+    }
+}
