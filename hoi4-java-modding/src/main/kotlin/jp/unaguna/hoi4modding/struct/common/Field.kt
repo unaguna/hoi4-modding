@@ -1,6 +1,8 @@
 package jp.unaguna.hoi4modding.struct.common
 
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileRelationRight
+import jp.unaguna.hoi4modding.struct.AiChance
+import jp.unaguna.hoi4modding.struct.ConcreteAiChance
 import jp.unaguna.hoi4modding.struct.ConcreteConditionCountry
 import jp.unaguna.hoi4modding.struct.ConcreteConditionState
 import jp.unaguna.hoi4modding.struct.ConcreteEffectCountry
@@ -118,6 +120,26 @@ internal class ComparableInteger<L : Label<Hoi4Number>>(fieldName: String, struc
     }
 }
 
+internal class AdjustableNumber<L : Label<Hoi4Number>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4Number, Number, L>(fieldName, struct) {
+    override infix fun eq(value: Number) {
+        super.eq(Hoi4Number(value))
+    }
+}
+
+internal class ComparableNumber<L : Label<Hoi4Number>>(fieldName: String, struct: MutableStruct) : AbstractComparableField<Hoi4Number, Number, L>(fieldName, struct) {
+    override infix fun eq(value: Number) {
+        super.eq(Hoi4Number(value))
+    }
+
+    override infix fun lt(value: Number) {
+        super.lt(Hoi4Number(value))
+    }
+
+    override infix fun gt(value: Number) {
+        super.gt(Hoi4Number(value))
+    }
+}
+
 internal class AdjustableString<L: Label<Hoi4String>>(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<Hoi4String, String, L>(fieldName, struct) {
     override infix fun eq(value: String) {
         super.eq(Hoi4String(value))
@@ -169,6 +191,12 @@ internal class AdjustableEffectState(fieldName: String, struct: MutableStruct) :
 internal class AdjustableConditionState(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<ConditionState, ConditionState.()->Unit, Nothing>(fieldName, struct) {
     override infix fun eq(value: ConditionState.()->Unit) {
         super.eq(ConcreteConditionState(value))
+    }
+}
+
+internal class AdjustableAiChance(fieldName: String, struct: MutableStruct) : AbstractAdjustableField<AiChance, AiChance.()->Unit, Nothing>(fieldName, struct) {
+    override infix fun eq(value: AiChance.()->Unit) {
+        super.eq(ConcreteAiChance(value))
     }
 }
 

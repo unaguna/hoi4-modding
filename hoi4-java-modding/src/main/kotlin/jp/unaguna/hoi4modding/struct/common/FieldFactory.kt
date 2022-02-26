@@ -1,6 +1,7 @@
 package jp.unaguna.hoi4modding.struct.common
 
 import jp.unaguna.hoi4modding.hoi4file.Hoi4FileWord
+import jp.unaguna.hoi4modding.struct.AiChance
 import jp.unaguna.hoi4modding.struct.ConditionCountry
 import jp.unaguna.hoi4modding.struct.ConditionState
 import jp.unaguna.hoi4modding.struct.CountryEvent
@@ -56,6 +57,10 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableConditionState(parameterName, struct)
     }
 
+    fun adjustableAiChance(parameterName: String): AdjustableField<AiChance, AiChance.()->Unit, Nothing> {
+        return AdjustableAiChance(parameterName, struct)
+    }
+
     fun adjustableBool(parameterName: String): AdjustableField<Hoi4Bool, Boolean, Nothing> {
         return AdjustableBool(parameterName, struct)
     }
@@ -66,6 +71,14 @@ class FieldFactory(private val struct: MutableStruct) {
 
     fun comparableInt(parameterName: String): ComparableField<Hoi4Number, Int, Label<Hoi4Number>> {
         return ComparableInteger(parameterName, struct)
+    }
+
+    fun adjustableNumber(parameterName: String): AdjustableField<Hoi4Number, Number, Nothing> {
+        return AdjustableNumber(parameterName, struct)
+    }
+
+    fun comparableNumber(parameterName: String): ComparableField<Hoi4Number, Number, Label<Hoi4Number>> {
+        return ComparableNumber(parameterName, struct)
     }
 
     fun adjustableWord(parameterName: String): AdjustableField<Hoi4Word, String, Nothing> {

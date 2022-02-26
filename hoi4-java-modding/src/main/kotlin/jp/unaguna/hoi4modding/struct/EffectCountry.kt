@@ -93,6 +93,8 @@ internal class ConcreteEffectCountryHistory(initialize: EffectCountryHistory.() 
 }
 
 abstract class CountryEventOption(val optionName: String): AbstractEffectCountry() {
+    val aiChance = fieldFactory.adjustableAiChance("ai_chance")
+
     init {
         fieldFactory.adjustableWord("name") eq optionName
     }
