@@ -2,6 +2,7 @@ plugins {
     `maven-publish`
     kotlin("jvm") version "1.6.10"
     id("java-gradle-plugin")
+    id("com.google.cloud.artifactregistry.gradle-plugin").version("2.1.5")
 }
 
 dependencies {
@@ -22,13 +23,17 @@ tasks {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["kotlin"])
-                artifact(tasks["sourcesJar"])
-            }
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["kotlin"])
+            artifact(tasks["sourcesJar"])
+        }
+    }
+
+    repositories {
+        maven {
+            setUrl("artifactregistry://asia-northeast1-maven.pkg.dev/hoi4-346504/hoi4-modding-maven")
         }
     }
 }
