@@ -11,6 +11,7 @@ import jp.unaguna.hoi4modding.struct.variable.IStateVariable
 
 abstract class Effect<S: Scope>: MutableStruct() {
     abstract val effectTooltip: AdjustableField<out Effect<S>, in Effect<S>.()->Unit, Nothing>
+    abstract val hiddenEffect: AdjustableField<out Effect<S>, in Effect<S>.()->Unit, Nothing>
     val setGlobalFlag = fieldFactory.adjustableFlag("set_global_flag")
     val everyState = fieldFactory.adjustableEffectState("every_state")
 

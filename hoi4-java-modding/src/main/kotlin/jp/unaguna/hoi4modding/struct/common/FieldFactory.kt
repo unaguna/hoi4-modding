@@ -21,6 +21,7 @@ import jp.unaguna.hoi4modding.struct.INamespace
 import jp.unaguna.hoi4modding.struct.IOob
 import jp.unaguna.hoi4modding.struct.IState
 import jp.unaguna.hoi4modding.struct.ITooltip
+import jp.unaguna.hoi4modding.struct.IWargoal
 import jp.unaguna.hoi4modding.struct.variable.IVariable
 import jp.unaguna.hoi4modding.struct.IdeologyIntStruct
 import jp.unaguna.hoi4modding.struct.TechnologyIntStruct
@@ -106,11 +107,15 @@ class FieldFactory(private val struct: MutableStruct) {
         return AdjustableWord(parameterName, struct)
     }
 
-    fun adjustableFlag(parameterName: String): AdjustableField<Hoi4String, String, IFlag> {
-        return AdjustableString(parameterName, struct)
+    fun adjustableFlag(parameterName: String): AdjustableField<Hoi4Word, String, IFlag> {
+        return AdjustableWord(parameterName, struct)
     }
 
     fun adjustableIdeology(parameterName: String): AdjustableField<Hoi4Word, String, IIdeology> {
+        return AdjustableWord(parameterName, struct)
+    }
+
+    fun adjustableWargoal(parameterName: String): AdjustableField<Hoi4Word, String, IWargoal> {
         return AdjustableWord(parameterName, struct)
     }
 

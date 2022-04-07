@@ -4,6 +4,7 @@ import jp.unaguna.hoi4modding.struct.common.Scope
 
 abstract class ConditionState: Condition<Scope.State>() {
     override val or = fieldFactory.adjustableConditionState("OR")
+    override val not = fieldFactory.adjustableConditionState("NOT")
     val owner = fieldFactory.adjustableConditionCountry("OWNER")
     val controller = fieldFactory.adjustableConditionCountry("CONTROLLER")
     val isClaimedBy = fieldFactory.adjustableCountry("is_claimed_by")

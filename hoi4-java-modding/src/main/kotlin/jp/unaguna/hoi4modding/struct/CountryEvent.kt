@@ -9,7 +9,9 @@ abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICo
     protected abstract val optionList: List<Pair<String?, CountryEventOption.() -> Unit>>
     open val titleKey: String = "$eventId.t"
     open val descriptionKey: String = "$eventId.desc"
-    abstract val isTriggeredOnly: Boolean
+    open val isTriggeredOnly: Boolean? = null
+    open val fireOnlyOnce: Boolean? = null
+    open val trigger: (ConditionCountry.() -> Unit)? = null
     open val picture: IGfx? = null
 
     override val parameterList: List<Parameter> by lazy { struct.parameterList }
@@ -34,6 +36,8 @@ abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICo
         private val desc = fieldFactory.adjustableWord("desc")
         private val picture = fieldFactory.adjustableGfx("picture")
         private val isTriggeredOnly = fieldFactory.adjustableBool("is_triggered_only")
+        private val fireOnlyOnce = fieldFactory.adjustableBool("fire_only_once")
+        private val trigger = fieldFactory.adjustableConditionCountry("trigger")
         private val option = fieldFactory.adjustableCountryEventOption("option")
 
         init {
@@ -41,7 +45,9 @@ abstract class CountryEvent(final override val eventId: String): Hoi4Struct, ICo
             title eq titleKey
             desc eq descriptionKey
             this@CountryEvent.picture?.let { picture eq it }
-            isTriggeredOnly eq this@CountryEvent.isTriggeredOnly
+            this@CountryEvent.isTriggeredOnly?.let { isTriggeredOnly eq it }
+            this@CountryEvent.fireOnlyOnce?.let { fireOnlyOnce eq it }
+            this@CountryEvent.trigger?.let { trigger eq it }
 
             for((index, o) in optionList.withIndex()) {
                 val (optionName_, optionDefinition) = o
