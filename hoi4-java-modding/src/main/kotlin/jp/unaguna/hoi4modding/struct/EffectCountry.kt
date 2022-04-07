@@ -1,21 +1,54 @@
 package jp.unaguna.hoi4modding.struct
 
+import jp.unaguna.hoi4modding.struct.common.Hoi4Word
 import jp.unaguna.hoi4modding.struct.common.Label
 import jp.unaguna.hoi4modding.struct.common.Scope
 import jp.unaguna.hoi4modding.struct.common.Value
 import jp.unaguna.hoi4modding.struct.variable.IStateVariable
 
 sealed class AbstractEffectCountry: Effect<Scope.Country>() {
+    override val effectTooltip = fieldFactory.adjustableEffectCountry("effect_tooltip")
+    override val hiddenEffect = fieldFactory.adjustableEffectCountry("hidden_effect")
+    val setCountryFlag = fieldFactory.adjustableFlag("set_country_flag")
     val limit = fieldFactory.adjustableConditionCountry("limit")
     val setPopularities = fieldFactory.adjustableIdeologyIntStruct("set_popularities")
     val setResearchSlots = fieldFactory.adjustableInt("set_research_slots")
     val addIdeas = fieldFactory.adjustableIdeaList("add_ideas")
     val setTechnology = fieldFactory.adjustableTechnologyIntStruct("set_technology")
+    val whitePeace = fieldFactory.adjustableCountry("white_peace")
+    val transferState = fieldFactory.adjustableState("transfer_state")
 
     private val setPolitics = fieldFactory.adjustableStruct("set_politics")
+    private val setTruce = fieldFactory.adjustableStruct("set_truce")
+    private val createWargoal = fieldFactory.adjustableStruct("create_wargoal")
+    private val countryEvent = fieldFactory.adjustableStruct("country_event")
 
     fun setPolitics(rulingParty: IIdeology, action: SetPoliticsBuilder.()->Unit) {
         setPolitics eq SetPoliticsBuilder(rulingParty).apply(action).build()
+    }
+
+    fun setTruce(target: ICountry, days: Int) {
+        setTruce eq SetTruceBuilder(target, days).build()
+    }
+
+    fun createWargoal(target: ICountry, type: IWargoal) {
+        createWargoal eq CreateWargoalBuilder(target, type).build()
+    }
+
+    fun createWargoal(target: String, type: IWargoal) {
+        createWargoal eq CreateWargoalBuilder(target, type).build()
+    }
+
+    fun countryEvent(event: ICountryEvent, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
+    }
+
+    fun countryEvent(event: Hoi4Word, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
+    }
+
+    fun countryEvent(event: String, action: FireCountryEventBuilder.()->Unit = {}) {
+        countryEvent eq FireCountryEventBuilder(event).apply(action).build()
     }
 
     @Deprecated("It is not recommended to use state variables in the country scope.")
@@ -71,6 +104,23 @@ abstract class EffectCountryHistory: AbstractEffectCountry() {
 }
 
 internal class ConcreteEffectCountryHistory(initialize: EffectCountryHistory.() -> Unit): EffectCountryHistory() {
+    init {
+        initialize(this)
+    }
+}
+
+abstract class CountryEventOption(val optionName: String): AbstractEffectCountry() {
+    val aiChance = fieldFactory.adjustableAiChance("ai_chance")
+
+    init {
+        fieldFactory.adjustableWord("name") eq optionName
+    }
+}
+
+internal class ConcreteCountryEventOption(
+    optionName: String,
+    initialize: CountryEventOption.() -> Unit,
+): CountryEventOption(optionName) {
     init {
         initialize(this)
     }

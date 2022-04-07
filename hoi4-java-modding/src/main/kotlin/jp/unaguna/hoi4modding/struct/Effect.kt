@@ -10,7 +10,10 @@ import jp.unaguna.hoi4modding.struct.variable.IVariable
 import jp.unaguna.hoi4modding.struct.variable.IStateVariable
 
 abstract class Effect<S: Scope>: MutableStruct() {
+    abstract val effectTooltip: AdjustableField<out Effect<S>, in Effect<S>.()->Unit, Nothing>
+    abstract val hiddenEffect: AdjustableField<out Effect<S>, in Effect<S>.()->Unit, Nothing>
     val setGlobalFlag = fieldFactory.adjustableFlag("set_global_flag")
+    val everyState = fieldFactory.adjustableEffectState("every_state")
 
     private val setVariable = fieldFactory.adjustableStruct("set_variable")
 
@@ -91,5 +94,12 @@ abstract class Effect<S: Scope>: MutableStruct() {
     }
     fun state(state: Int): AdjustableField<EffectState, EffectState.() -> Unit, Nothing> {
         return fieldFactory.adjustableEffectState(state.toString())
+    }
+
+    fun country(country: ICountry): AdjustableField<EffectCountry, EffectCountry.() -> Unit, Nothing> {
+        return fieldFactory.adjustableEffectCountry(country.tag)
+    }
+    fun country(country: String): AdjustableField<EffectCountry, EffectCountry.() -> Unit, Nothing> {
+        return fieldFactory.adjustableEffectCountry(country)
     }
 }
