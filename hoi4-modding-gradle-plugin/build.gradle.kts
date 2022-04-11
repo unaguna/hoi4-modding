@@ -37,3 +37,14 @@ publishing {
         }
     }
 }
+
+gradlePlugin {
+    plugins {
+        register("hoi4-modding-gradle-plugin") {
+            id = "jp.unaguna.hoi4-modding.hoi4-modding-gradle-plugin"
+            description = ""
+            displayName = "Hoi4 modding gradle Plugin"
+            implementationClass = "jp.unaguna.hoi4modding.gradle.Hoi4ModdingPlugin"
+        }
+    }
+}
